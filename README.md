@@ -1,5 +1,3 @@
-# Pomodoro Timer
-
 # Pomodoro Timer with To-Do List
 
 A Pomodoro timer app with an integrated to-do list for efficient task and time management.
