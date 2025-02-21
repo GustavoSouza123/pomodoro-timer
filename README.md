@@ -1,8 +1,50 @@
-# PomodoroTimer
+# Pomodoro Timer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+# Pomodoro Timer with To-Do List
+
+A Pomodoro timer app with an integrated to-do list for efficient task and time management.
+
+## Features
+
+- **Pomodoro Timer**: Stay productive with the Pomodoro technique, using customizable work and break intervals.
+- **Integrated To-Do List**: Add, edit, and manage tasks directly within the app.
+- **Task-Based Timing**: Start a Pomodoro session linked to a specific task to stay focused.
+- **Session Tracking**: Keep track of completed Pomodoro sessions and tasks.
+- **Customizable Settings**: Adjust work and break durations to fit your workflow.
+- **Simple and User-Friendly UI**: Clean and intuitive interface for seamless task and time management.
+
+## Why Use This App?
+
+- **Boost Productivity**: Helps you stay focused by using structured work intervals.
+- **Organize Your Tasks**: Manage tasks efficiently with an integrated to-do list.
+- **Avoid Burnout**: Encourages breaks to maintain energy levels.
+- **Track Your Progress**: Monitor your completed tasks and Pomodoro sessions.
+
+## Getting Started
+
+### Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/GustavoSouza123/pomodoro-timer
+   cd pomodoro-todo
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm start
+   ```
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues and pull requests to improve the app.
 
 ## Development server
+
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
 
 To start a local development server, run:
 
@@ -12,48 +54,6 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## License
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+This project is licensed under the MIT License.
