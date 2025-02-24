@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-pomodoro',
   imports: [],
   templateUrl: './pomodoro.component.html',
-  styleUrl: './pomodoro.component.scss'
+  styleUrl: './pomodoro.component.scss',
 })
-export class PomodoroComponent {
-
-}
+export class PomodoroComponent {}
