@@ -1,0 +1,14 @@
+$font-stack: "Inter", serif;
+$primary: #fff;
+$secondary: #333;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: $font-stack;
+}
