@@ -5,10 +5,10 @@
   @include mixins.align-center();
   width: 100%;
   min-height: 100vh;
-}
 
-.main .content {
-  width: 100%;
-  max-width: 1440px;
-  min-height: 100vh;
+  .content {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+  }
 }

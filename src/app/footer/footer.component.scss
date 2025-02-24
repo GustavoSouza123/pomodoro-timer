@@ -1,0 +1,33 @@
+@use "../../base";
+@use "../../mixins";
+
+footer {
+  width: 100%;
+  height: 60px;
+  background: base.$primary;
+  position: absolute;
+  bottom: 0;
+
+  .content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px 48px;
+
+    .icons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .icon {
+        height: 28px;
+        cursor: pointer;
+
+        img {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
