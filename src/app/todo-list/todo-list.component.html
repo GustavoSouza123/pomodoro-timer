@@ -1,45 +1,39 @@
 <section>
   <div class="top">
-    <h1>To-do list</h1>
-    <div class="add">
-      <svg
-        width="800px"
-        height="800px"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g id="Complete">
-          <g data-name="add" id="add-2">
-            <g>
-              <line
-                fill="none"
-                stroke="#000000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                x1="12"
-                x2="12"
-                y1="19"
-                y2="5"
-              />
-              <line
-                fill="none"
-                stroke="#000000"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                x1="5"
-                x2="19"
-                y1="12"
-                y2="12"
-              />
-            </g>
-          </g>
-        </g>
-      </svg>
+    <app-title title="To-do List" subtitle="My tasks" [addButton]="true" />
+    <div class="tasks">
+      <div *ngIf="tasks?.length; else noTasks">
+        <app-task
+          *ngFor="let task of tasks"
+          [task]="task"
+          (taskClicked)="handleTaskClick($event)"
+        />
+      </div>
+      <ng-template #noTasks>
+        <i>No tasks</i>
+      </ng-template>
     </div>
   </div>
+
   <div class="bottom">
-    <p>My tasks</p>
+    <app-title title="Statistics" subtitle="Task data" />
+    <div class="filter">
+      <select name="filter" id="filter">
+        <option value="" default selected>All</option>
+        <option value="1">Today</option>
+        <option value="2">Last week</option>
+        <option value="3">Last month</option>
+      </select>
+    </div>
+    <div class="statistics">
+      <div class="row">
+        <div class="stat">Total time:</div>
+        <div class="data">56</div>
+      </div>
+      <div class="row">
+        <div class="stat">Sessions:</div>
+        <div class="data">3</div>
+      </div>
+    </div>
   </div>
 </section>

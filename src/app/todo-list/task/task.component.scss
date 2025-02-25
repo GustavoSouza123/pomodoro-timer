@@ -1,0 +1,49 @@
+@use "../../../base";
+@use "../../../mixins";
+
+.task {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  gap: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: 1px solid transparent;
+
+  &:hover,
+  &.active {
+    border-color: base.$border;
+  }
+
+  input {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    accent-color: base.$color-secondary;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex-grow: 1;
+
+    .title {
+      font-size: 16px;
+    }
+
+    .description {
+      font-size: 14px;
+      color: base.$color-secondary;
+    }
+  }
+
+  .favorite {
+    svg {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+}

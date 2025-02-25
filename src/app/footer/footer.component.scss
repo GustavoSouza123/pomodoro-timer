@@ -14,6 +14,8 @@ footer {
     height: 100%;
     padding: 20px 8px;
     border-top: 1px solid base.$border;
+    display: flex;
+    gap: 24px;
 
     .copyright {
       height: 100%;
@@ -21,12 +23,12 @@ footer {
     }
 
     .icons {
-      display: none;
-      gap: 16px;
+      display: flex;
+      gap: 12px;
       align-items: center;
 
       .icon {
-        height: 28px;
+        height: 24px;
         cursor: pointer;
 
         img {
