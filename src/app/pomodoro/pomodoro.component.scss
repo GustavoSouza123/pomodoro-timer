@@ -1,3 +1,12 @@
+@use "../../base";
+@use "../../mixins";
+
 ::ng-deep app-pomodoro {
   width: 67%;
+	height: 100%;
+}
+
+section {
+	height: 100%;
+  padding: 32px 48px;
 }

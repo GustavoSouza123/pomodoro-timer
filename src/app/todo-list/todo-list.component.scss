@@ -1,3 +1,45 @@
+@use "../../base";
+@use "../../mixins";
+
 ::ng-deep app-todo-list {
   width: 33%;
+	height: 100%;
+}
+
+section {
+	height: 100%;
+	padding: 32px 48px;
+  border-right: 1px solid base.$border;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		h1 {
+			font-size: 32px;
+			font-weight: 600;
+		}
+
+		.add {
+			@include mixins.align-center();
+			width: 32px;
+			height: 32px;
+			transition: .2s;
+			border-radius: 6px;
+			cursor: pointer;
+			
+			&:hover {
+				background: base.$hover-primary;
+			}
+
+			svg {
+				width: 24px;
+				height: 24px;
+			}
+		}
+	}
 }
