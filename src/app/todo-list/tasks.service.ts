@@ -9,7 +9,7 @@ export class TasksService {
       title: 'Learn Angular',
       description: 'A short description of my task',
       favorite: false,
-      active: false,
+      active: true,
     },
     {
       id: 2,

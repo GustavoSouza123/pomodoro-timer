@@ -13,14 +13,14 @@ export class TaskComponent {
   @Input() task?: Task;
   @Output() taskClicked = new EventEmitter<number>();
 
-	constructor(private tasksService: TasksService) {}
+  constructor(private tasksService: TasksService) {}
 
   handleClick(id?: number) {
     this.taskClicked.emit(id);
   }
 
-	handleFavorite(event: Event, id?: number) {
-		event.stopPropagation();
-		this.tasksService.updateFavorite(id);
-	}
+  handleFavorite(event: Event, id?: number) {
+    event.stopPropagation();
+    this.tasksService.updateFavorite(id);
+  }
 }
