@@ -16,7 +16,36 @@ section {
     gap: 40px;
     width: 100%;
     height: 100%;
-    padding-bottom: 70px;
+    padding-bottom: 100px;
+
+    .tabs {
+      @include mixins.align-center();
+			gap: 4px;
+      justify-content: space-between;
+      height: 40px;
+      background-color: base.$terciary;
+      border-radius: 8px;
+      padding: 4px;
+
+      .tab {
+        @include mixins.align-center();
+        background-color: transparent;
+        min-width: 20px;
+        height: 100%;
+        padding: 0px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+				transition: .2s;
+
+        &.active {
+          background-color: base.$primary;
+        }
+
+				&:not(.active):hover {
+					background-color: base.$hover-terciary;
+				}
+      }
+    }
 
     .timer {
       @include mixins.align-center();
@@ -28,8 +57,38 @@ section {
       border-radius: 50%;
 
       .time {
-        font-size: 64px;
-        font-weight: 400;
+        @include mixins.align-center();
+
+        & > * {
+          font-size: 64px;
+          font-weight: 400;
+        }
+
+        input {
+          width: 80px;
+          height: 80px;
+          text-align: center;
+          border: none;
+          outline: none;
+          appearance: none;
+
+          &.minutes {
+            &:hover {
+              outline: 1px solid base.$border;
+            }
+
+            &:focus {
+              outline: 3px solid base.$border;
+            }
+          }
+        }
+
+        div {
+          @include mixins.align-center();
+          position: relative;
+          bottom: 5px;
+          margin: 0 2px;
+        }
       }
 
       .description {
@@ -55,4 +114,10 @@ section {
       }
     }
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
