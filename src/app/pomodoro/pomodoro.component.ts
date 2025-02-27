@@ -56,7 +56,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
   ];
 
   activeTab: Tab = this.tabs[0];
-  activeAlarm: number = 1;
+  activeAlarm: number = 3;
 
   minutes: number = this.activeTab.time.minutes;
   seconds: number = this.activeTab.time.seconds;
@@ -76,7 +76,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
 
   onInput() {
     this.checkInputWidth();
-		this.activeTab.time.minutes = this.minutes;
+    this.activeTab.time.minutes = this.minutes;
   }
 
   onStartClick() {
@@ -95,6 +95,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
         this.minutes = this.activeTab.time.minutes;
         this.seconds = this.activeTab.time.seconds;
         this.checkSeconds();
+        this.checkInputWidth();
       }
     } else {
       let timer = setInterval(() => {
