@@ -53,10 +53,11 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
     'mixkit-classic-short-alarm-993.wav',
     'mixkit-security-facility-breach-alarm-994.wav',
     'mixkit-warning-alarm-buzzer-991.wav',
+		'milkshake-de-morango.wav'
   ];
 
   activeTab: Tab = this.tabs[0];
-  activeAlarm: number = 3;
+  activeAlarm: number = 5;
 
   minutes: number = this.activeTab.time.minutes;
   seconds: number = this.activeTab.time.seconds;
@@ -82,7 +83,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
   onStartClick() {
     if (this.timerStarted) {
       if (!this.isPaused) {
-        this.isPaused = true;
+        this.isPaused = true; 
       } else if (this.isPaused) {
         this.isPaused = false;
       }
