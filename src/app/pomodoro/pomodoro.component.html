@@ -1,25 +1,29 @@
 <section>
   <app-title title="Pomodoro Timer" subtitle="Countdown timer" />
   <div class="pomodoro">
-    <div class="tabs">
+    <div class="tabs" [ngClass]="{  }">
       <div
         *ngFor="let tab of tabs"
         class="tab"
         [ngClass]="{ active: activeTab.id === tab.id }"
-        (click)="handleTabClick(tab.id)"
+        (click)="onTabClick(tab.id)"
       >
         {{ tab.name }}
       </div>
+			<div class="overlay" [ngClass]="{ active: timerStarted }"></div>
     </div>
     <div class="timer">
       <div class="time">
         <input
           type="text"
           class="minutes"
+					[ngClass]="{ inactive: timerStarted }"
           maxlength="2"
           pattern="[0-9]{2}"
+					[readOnly]="timerStarted"
           [(ngModel)]="minutes"
-					#minutesInput
+					(input)="onInput()"
+          #minutesInput
         />
         <div>:</div>
         <input type="text" class="seconds" [(ngModel)]="secondsStr" readonly />

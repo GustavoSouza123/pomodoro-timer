@@ -11,7 +11,7 @@ import { Tab } from './tab.model';
   styleUrl: './pomodoro.component.scss',
 })
 export class PomodoroComponent implements OnInit {
-	@ViewChild('minutesInput') minutesInput!: ElementRef;
+  @ViewChild('minutesInput') minutesInput!: ElementRef;
 
   tabs: Tab[] = [
     {
@@ -32,12 +32,17 @@ export class PomodoroComponent implements OnInit {
   ];
 
   activeTab: Tab = this.tabs[0];
+  timerStarted: boolean = false;
   minutes: number = this.activeTab?.time;
   seconds: number = 0;
   secondsStr!: string;
 
   ngOnInit(): void {
     this.checkSeconds();
+  }
+
+  onInput() {
+    this.checkInputWidth();
   }
 
   onStartClick() {
@@ -48,7 +53,10 @@ export class PomodoroComponent implements OnInit {
         this.seconds = 59;
       }
       this.checkSeconds();
+      this.checkInputWidth();
     }, 1000);
+
+    this.timerStarted = true;
   }
 
   checkSeconds() {
@@ -56,17 +64,19 @@ export class PomodoroComponent implements OnInit {
       this.seconds < 10 ? '0' + this.seconds : this.seconds.toString();
   }
 
-	checkInputWidth() {
-		if(this.minutes < 10) {
-			this.minutesInput.nativeElement.style.width = '40px';
-		} else {
-			this.minutesInput.nativeElement.style.width = '80px';
-		}
-	}
+  checkInputWidth() {
+    if (this.minutes < 10) {
+      this.minutesInput.nativeElement.style.width = '40px';
+    } else {
+      this.minutesInput.nativeElement.style.width = '80px';
+    }
+  }
 
-  handleTabClick(id: number) {
-    this.activeTab = this.tabs.find((tab) => tab.id === id) as Tab;
-    this.minutes = this.activeTab.time;
-		this.checkInputWidth();
+  onTabClick(id: number) {
+    if (!this.timerStarted) {
+      this.activeTab = this.tabs.find((tab) => tab.id === id) as Tab;
+      this.minutes = this.activeTab.time;
+      this.checkInputWidth();
+    }
   }
 }
