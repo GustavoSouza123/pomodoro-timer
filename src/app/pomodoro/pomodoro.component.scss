@@ -136,6 +136,24 @@ section {
       &:hover {
         background-color: base.$hover-secondary;
       }
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .pause {
+        @include mixins.align-center();
+        display: none;
+      }
+
+      & > div {
+        display: none;
+      }
+
+      & > div.active {
+        display: flex;
+      }
     }
   }
 }

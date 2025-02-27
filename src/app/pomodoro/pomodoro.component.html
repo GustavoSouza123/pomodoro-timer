@@ -1,7 +1,7 @@
 <section>
   <app-title title="Pomodoro Timer" subtitle="Countdown timer" />
   <div class="pomodoro">
-    <div class="tabs" [ngClass]="{  }">
+    <div class="tabs" [ngClass]="{}">
       <div
         *ngFor="let tab of tabs"
         class="tab"
@@ -10,19 +10,19 @@
       >
         {{ tab.name }}
       </div>
-			<div class="overlay" [ngClass]="{ active: timerStarted }"></div>
+      <div class="overlay" [ngClass]="{ active: timerStarted }"></div>
     </div>
     <div class="timer">
       <div class="time">
         <input
           type="text"
           class="minutes"
-					[ngClass]="{ inactive: timerStarted }"
+          [ngClass]="{ inactive: timerStarted }"
           maxlength="2"
           pattern="[0-9]{2}"
-					[readOnly]="timerStarted"
+          [readOnly]="timerStarted"
           [(ngModel)]="minutes"
-					(input)="onInput()"
+          (input)="onInput()"
           #minutesInput
         />
         <div>:</div>
@@ -30,6 +30,56 @@
       </div>
       <div class="description">{{ activeTab.name }}</div>
     </div>
-    <div class="button" (click)="onStartClick()">Start</div>
+    <div class="button" (click)="onStartClick()">
+      <div class="start" [ngClass]="{ active: !timerStarted }">Start</div>
+      <div
+        class="pause"
+        [ngClass]="{ active: timerStarted && !isPaused && !alarmStarted }"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="5 3 14 18">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M5.163 3.819C5 4.139 5 4.559 5 5.4v13.2c0 .84 0 1.26.163 1.581a1.5 1.5 0 0 0 .656.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .656-.656c.163-.32.163-.74.163-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C8.861 3 8.441 3 7.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.656.656zm9 0C14 4.139 14 4.559 14 5.4v13.2c0 .84 0 1.26.164 1.581a1.5 1.5 0 0 0 .655.655c.32.164.74.164 1.581.164h.2c.84 0 1.26 0 1.581-.163a1.5 1.5 0 0 0 .655-.656c.164-.32.164-.74.164-1.581V5.4c0-.84 0-1.26-.163-1.581a1.5 1.5 0 0 0-.656-.656C17.861 3 17.441 3 16.6 3h-.2c-.84 0-1.26 0-1.581.163a1.5 1.5 0 0 0-.655.656z"
+            fill="#ffffff"
+          />
+        </svg>
+      </div>
+      <div
+        class="play"
+        [ngClass]="{ active: timerStarted && isPaused && !alarmStarted }"
+      >
+        <svg width="800px" height="800px" viewBox="-3 0 28 28">
+          <defs></defs>
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+            sketch:type="MSPage"
+          >
+            <g
+              id="Icon-Set-Filled"
+              sketch:type="MSLayerGroup"
+              transform="translate(-419.000000, -571.000000)"
+              fill="#ffffff"
+            >
+              <path
+                d="M440.415,583.554 L421.418,571.311 C420.291,570.704 419,570.767 419,572.946 L419,597.054 C419,599.046 420.385,599.36 421.418,598.689 L440.415,586.446 C441.197,585.647 441.197,584.353 440.415,583.554"
+                id="play"
+                sketch:type="MSShapeGroup"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="stop" [ngClass]="{ active: timerStarted && alarmStarted }">
+        Stop alarm
+      </div>
+    </div>
+    <audio loop #audio>
+      <source [src]="alarms[activeAlarm]" type="audio/wav" />
+    </audio>
   </div>
 </section>
