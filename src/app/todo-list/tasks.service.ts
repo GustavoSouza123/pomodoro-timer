@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Task } from './task.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TasksService {
+  taskCreated = new EventEmitter<Task[]>();
+	editClicked = new EventEmitter<boolean>();
+
   private tasks: Task[] = [
     {
       id: 1,
@@ -23,6 +28,13 @@ export class TasksService {
       title: 'Read my books',
       description: 'A short description of my task',
       favorite: true,
+      active: false,
+    },
+    {
+      id: 4,
+      title: 'Learn german',
+      description: 'A short description of my task',
+      favorite: false,
       active: false,
     },
   ];
@@ -50,5 +62,17 @@ export class TasksService {
         task.favorite = !task.favorite;
       }
     });
+  }
+
+  createTask() {
+    this.tasks.push({
+      id: this.tasks.length + 1,
+      title: 'New task',
+      description: 'A description of my new task',
+      favorite: false,
+      active: false,
+    });
+
+    this.taskCreated.emit(this.tasks.slice());
   }
 }

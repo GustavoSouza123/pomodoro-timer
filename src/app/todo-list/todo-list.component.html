@@ -3,11 +3,17 @@
     <app-title title="To-do List" subtitle="My tasks" [addButton]="true" />
     <div class="tasks">
       <div *ngIf="tasks?.length; else noTasks">
-        <app-task
-          *ngFor="let task of tasks"
-          [task]="task"
-          (taskClicked)="handleTaskClick($event)"
-        />
+        <div class="button" [ngClass]="{ active: edit }" (click)="onSaveClick()">
+          <div class="save-btn">Save</div>
+        </div>
+        <div class="tasks-content">
+          <app-task
+            *ngFor="let task of tasks"
+            [task]="task"
+            [edit]="edit"
+            (taskClicked)="handleTaskClick($event)"
+          />
+        </div>
       </div>
       <ng-template #noTasks>
         <i>No tasks</i>

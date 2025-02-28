@@ -5,8 +5,10 @@
 >
   <input type="radio" name="task1" id="task1" [checked]="this.task?.active" />
   <div class="info">
-    <div class="title">{{ task?.title }}</div>
-    <div class="description">{{ task?.description }}</div>
+    <div class="title" [contentEditable]="edit">{{ task?.title }}</div>
+    <div class="description" [contentEditable]="edit">
+      {{ task?.description }}
+    </div>
   </div>
   <div class="favorite" (click)="handleFavorite($event, task?.id)">
     <svg

@@ -11,6 +11,7 @@ import { TasksService } from '../tasks.service';
 })
 export class TaskComponent {
   @Input() task?: Task;
+  @Input() edit: boolean = false;
   @Output() taskClicked = new EventEmitter<number>();
 
   constructor(private tasksService: TasksService) {}

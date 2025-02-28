@@ -16,21 +16,27 @@
       font-weight: 600;
     }
 
-    .add {
-      @include mixins.align-center();
-      width: 32px;
-      height: 32px;
-      transition: 0.2s;
-      border-radius: 6px;
-      cursor: pointer;
+    .buttons {
+			@include mixins.align-center();
 
-      &:hover {
-        background: base.$hover-primary;
-      }
 
-      svg {
-        width: 24px;
-        height: 24px;
+      .add,
+      .edit {
+        @include mixins.align-center();
+        width: 32px;
+        height: 32px;
+        transition: 0.2s;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+          background: base.$hover-primary;
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
       }
     }
   }
