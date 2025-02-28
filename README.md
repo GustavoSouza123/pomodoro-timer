@@ -25,7 +25,7 @@ A Pomodoro timer app with an integrated to-do list for efficient task and time m
 1. Clone the repository:
    ```sh
    git clone https://github.com/GustavoSouza123/pomodoro-timer
-   cd pomodoro-todo
+   cd pomodoro-timer
    ```
 2. Install dependencies:
    ```sh
@@ -35,10 +35,6 @@ A Pomodoro timer app with an integrated to-do list for efficient task and time m
    ```sh
    npm start
    ```
-
-## Contributing
-
-Contributions are welcome! Feel free to open issues and pull requests to improve the app.
 
 ## Development server
 
@@ -51,6 +47,10 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+
+## Contributing
+
+Contributions are welcome! Feel free to open issues and pull requests to improve the app.
 
 ## License
 
