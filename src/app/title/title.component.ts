@@ -12,6 +12,7 @@ export class TitleComponent {
   @Input() title: string = 'My title';
   @Input() subtitle: string = 'My subtitle';
   @Input() addButton: boolean = false;
+  @Input() edit: boolean = false;
 
   constructor(private tasksService: TasksService) {}
 
@@ -20,6 +21,7 @@ export class TitleComponent {
   }
 
   onEditClick() {
-    this.tasksService.editClicked.emit(true);
+    this.edit = !this.edit;
+    this.tasksService.editClicked.emit(this.edit);
   }
 }

@@ -1,9 +1,18 @@
 <section>
   <div class="top">
-    <app-title title="To-do List" subtitle="My tasks" [addButton]="true" />
+    <app-title
+      title="To-do List"
+      subtitle="My tasks"
+      [addButton]="true"
+      [edit]="edit"
+    />
     <div class="tasks">
       <div *ngIf="tasks?.length; else noTasks">
-        <div class="button" [ngClass]="{ active: edit }" (click)="onSaveClick()">
+        <div
+          class="button"
+          [ngClass]="{ active: edit }"
+          (click)="onSaveClick()"
+        >
           <div class="save-btn">Save</div>
         </div>
         <div class="tasks-content">
