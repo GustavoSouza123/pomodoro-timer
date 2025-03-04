@@ -1,12 +1,22 @@
 <div
   class="task"
-  [ngClass]="{ active: task?.active }"
+  [ngClass]="{ active: task?.active, edit: edit }"
   (click)="handleClick(task?.id)"
 >
   <input type="radio" name="task1" id="task1" [checked]="this.task?.active" />
   <div class="info">
-    <div class="title" [contentEditable]="edit">{{ task?.title }}</div>
-    <div class="description" [contentEditable]="edit">
+    <div
+      class="title"
+      [contentEditable]="edit"
+      (input)="handleInput('title', $event)"
+    >
+      {{ task?.title }}
+    </div>
+    <div
+      class="description"
+      [contentEditable]="edit"
+      (input)="handleInput('description', $event)"
+    >
       {{ task?.description }}
     </div>
   </div>

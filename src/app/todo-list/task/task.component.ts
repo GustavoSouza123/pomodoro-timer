@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-task',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
@@ -17,11 +18,43 @@ export class TaskComponent {
   constructor(private tasksService: TasksService) {}
 
   handleClick(id?: number) {
-    this.taskClicked.emit(id);
+    if (!this.edit) {
+      this.taskClicked.emit(id);
+    }
   }
 
   handleFavorite(event: Event, id?: number) {
-    event.stopPropagation();
-    this.tasksService.updateFavorite(id);
+    if (!this.edit) {
+      event.stopPropagation();
+      this.tasksService.updateFavorite(id);
+    }
+  }
+
+  handleInput(attribute: string, event: Event) {
+    const target = event.target as HTMLElement;
+    const value = target.innerHTML.trim();
+
+		// isn't working
+    const range = document.createRange();
+    range.setStart(target, 1);
+    range.collapse(true);
+    window.getSelection()?.removeAllRanges();
+    window.getSelection()?.addRange(range);
+		// isn't working
+
+    // update task through tasks service in real time
+    if (attribute === 'title') {
+      this.tasksService.updateTask(
+        this.task?.id as number,
+        value as string,
+        this.task?.description as string
+      );
+    } else if (attribute === 'description') {
+      this.tasksService.updateTask(
+        this.task?.id as number,
+        this.task?.title as string,
+        value as string
+      );
+    }
   }
 }

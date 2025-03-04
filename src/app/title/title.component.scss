@@ -17,8 +17,7 @@
     }
 
     .buttons {
-			@include mixins.align-center();
-
+      @include mixins.align-center();
 
       .add,
       .edit {

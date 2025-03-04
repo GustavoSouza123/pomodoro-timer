@@ -16,6 +16,20 @@
     border-color: base.$border;
   }
 
+  &.edit {
+    .info {
+      .title:hover,
+      .description:hover {
+        outline: 1px solid base.$border;
+      }
+
+      .title:focus,
+      .description:focus {
+        outline: 3px solid base.$border;
+      }
+    }
+  }
+
   input {
     width: 20px;
     height: 20px;

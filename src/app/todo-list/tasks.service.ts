@@ -6,7 +6,8 @@ import { Task } from './task.model';
 })
 export class TasksService {
   taskCreated = new EventEmitter<Task[]>();
-	editClicked = new EventEmitter<boolean>();
+  taskUpdated = new EventEmitter<Task[]>();
+  editClicked = new EventEmitter<boolean>();
 
   private tasks: Task[] = [
     {
@@ -47,6 +48,29 @@ export class TasksService {
     return this.tasks.find((task) => task.id === id);
   }
 
+  createTask() {
+    this.tasks.push({
+      id: this.tasks.length + 1,
+      title: 'New task',
+      description: 'A description of my new task',
+      favorite: false,
+      active: false,
+    });
+
+    this.taskCreated.emit(this.tasks.slice());
+  }
+
+  updateTask(id: number, title: string, description: string) {
+    this.tasks.forEach((task) => {
+      if (task.id === id) {
+        task.title = title;
+        task.description = description;
+      }
+    });
+
+    this.taskUpdated.emit(this.tasks.slice());
+  }
+
   updateActive(id: number) {
     this.tasks.forEach((task) => {
       task.active = false;
@@ -62,17 +86,5 @@ export class TasksService {
         task.favorite = !task.favorite;
       }
     });
-  }
-
-  createTask() {
-    this.tasks.push({
-      id: this.tasks.length + 1,
-      title: 'New task',
-      description: 'A description of my new task',
-      favorite: false,
-      active: false,
-    });
-
-    this.taskCreated.emit(this.tasks.slice());
   }
 }
