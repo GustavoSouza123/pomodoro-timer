@@ -1,28 +1,28 @@
 <div
   class="task"
-  [ngClass]="{ active: task?.active, edit: edit }"
-  (click)="handleClick(task?.id)"
+  [ngClass]="{ active: task.active, edit: edit }"
+  (click)="handleClick(task.id)"
 >
-  <input type="radio" name="task1" id="task1" [checked]="this.task?.active" />
+  <input type="radio" name="task1" id="task1" [checked]="this.task.active" />
   <div class="info">
-    <div
+    <input
+      type="text"
       class="title"
-      [contentEditable]="edit"
+      [readOnly]="!edit"
+      [(ngModel)]="task.title"
       (input)="handleInput('title', $event)"
-    >
-      {{ task?.title }}
-    </div>
-    <div
+    />
+    <input
+      type="text"
       class="description"
-      [contentEditable]="edit"
+      [readOnly]="!edit"
+      [(ngModel)]="task.description"
       (input)="handleInput('description', $event)"
-    >
-      {{ task?.description }}
-    </div>
+    />
   </div>
-  <div class="favorite" (click)="handleFavorite($event, task?.id)">
+  <div class="favorite" (click)="handleFavorite($event, task.id)">
     <svg
-      *ngIf="!this.task?.favorite; else favorite"
+      *ngIf="!this.task.favorite; else favorite"
       fill="#000000"
       width="800px"
       height="800px"

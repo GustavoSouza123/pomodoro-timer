@@ -30,7 +30,7 @@
     }
   }
 
-  input {
+  input[type="checkbox"] {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -42,6 +42,11 @@
     flex-direction: column;
     gap: 4px;
     flex-grow: 1;
+
+		input {
+			outline: none;
+			border: none;
+		}
 
     .title {
       font-size: 16px;

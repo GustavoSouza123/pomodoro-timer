@@ -11,7 +11,7 @@ import { TasksService } from '../tasks.service';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  @Input() task?: Task;
+  @Input() task!: Task;
   @Input() edit: boolean = false;
   @Output() taskClicked = new EventEmitter<number>();
 
@@ -34,25 +34,17 @@ export class TaskComponent {
     const target = event.target as HTMLElement;
     const value = target.innerHTML.trim();
 
-		// isn't working
-    const range = document.createRange();
-    range.setStart(target, 1);
-    range.collapse(true);
-    window.getSelection()?.removeAllRanges();
-    window.getSelection()?.addRange(range);
-		// isn't working
-
-    // update task through tasks service in real time
+    // update task through tasks service in real time (not working)
     if (attribute === 'title') {
       this.tasksService.updateTask(
-        this.task?.id as number,
+        this.task.id as number,
         value as string,
-        this.task?.description as string
+        this.task.description as string
       );
     } else if (attribute === 'description') {
       this.tasksService.updateTask(
-        this.task?.id as number,
-        this.task?.title as string,
+        this.task.id as number,
+        this.task.title as string,
         value as string
       );
     }

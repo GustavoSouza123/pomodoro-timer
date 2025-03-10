@@ -60,15 +60,20 @@ export class TasksService {
     this.taskCreated.emit(this.tasks.slice());
   }
 
+	// update task not working for now
   updateTask(id: number, title: string, description: string) {
-    this.tasks.forEach((task) => {
-      if (task.id === id) {
-        task.title = title;
-        task.description = description;
-      }
-    });
+    const index = this.tasks.findIndex((task) => task.id === id);
 
-    this.taskUpdated.emit(this.tasks.slice());
+    if (index !== -1) {
+      this.tasks[index] = {
+        ...this.tasks[index],
+        title,
+        description,
+      };
+      this.taskUpdated.emit(this.tasks.slice());
+    } else {
+      console.error(`Task with id ${index} not found`);
+    }
   }
 
   updateActive(id: number) {
