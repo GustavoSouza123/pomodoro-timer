@@ -10,14 +10,12 @@
       class="title"
       [readOnly]="!edit"
       [(ngModel)]="task.title"
-      (input)="handleInput('title', $event)"
     />
     <input
       type="text"
       class="description"
       [readOnly]="!edit"
       [(ngModel)]="task.description"
-      (input)="handleInput('description', $event)"
     />
   </div>
   <div class="favorite" (click)="handleFavorite($event, task.id)">

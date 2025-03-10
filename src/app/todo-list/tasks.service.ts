@@ -6,7 +6,6 @@ import { Task } from './task.model';
 })
 export class TasksService {
   taskCreated = new EventEmitter<Task[]>();
-  taskUpdated = new EventEmitter<Task[]>();
   editClicked = new EventEmitter<boolean>();
 
   private tasks: Task[] = [
@@ -58,22 +57,6 @@ export class TasksService {
     });
 
     this.taskCreated.emit(this.tasks.slice());
-  }
-
-	// update task not working for now
-  updateTask(id: number, title: string, description: string) {
-    const index = this.tasks.findIndex((task) => task.id === id);
-
-    if (index !== -1) {
-      this.tasks[index] = {
-        ...this.tasks[index],
-        title,
-        description,
-      };
-      this.taskUpdated.emit(this.tasks.slice());
-    } else {
-      console.error(`Task with id ${index} not found`);
-    }
   }
 
   updateActive(id: number) {

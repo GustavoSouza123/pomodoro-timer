@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
@@ -10,12 +10,20 @@ import { TasksService } from '../tasks.service';
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss',
 })
-export class TaskComponent {
+export class TaskComponent implements OnInit {
   @Input() task!: Task;
   @Input() edit: boolean = false;
   @Output() taskClicked = new EventEmitter<number>();
 
+  taskTitleInput!: string;
+  taskDescriptionInput!: string;
+
   constructor(private tasksService: TasksService) {}
+
+  ngOnInit(): void {
+    this.taskTitleInput = this.task.title;
+    this.taskDescriptionInput = this.task.description;
+  }
 
   handleClick(id?: number) {
     if (!this.edit) {
@@ -27,26 +35,6 @@ export class TaskComponent {
     if (!this.edit) {
       event.stopPropagation();
       this.tasksService.updateFavorite(id);
-    }
-  }
-
-  handleInput(attribute: string, event: Event) {
-    const target = event.target as HTMLElement;
-    const value = target.innerHTML.trim();
-
-    // update task through tasks service in real time (not working)
-    if (attribute === 'title') {
-      this.tasksService.updateTask(
-        this.task.id as number,
-        value as string,
-        this.task.description as string
-      );
-    } else if (attribute === 'description') {
-      this.tasksService.updateTask(
-        this.task.id as number,
-        this.task.title as string,
-        value as string
-      );
     }
   }
 }
