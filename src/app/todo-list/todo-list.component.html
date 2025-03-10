@@ -21,6 +21,7 @@
             [task]="task"
             [edit]="edit"
             (taskClicked)="handleTaskClick($event)"
+						(click)="setActiveTask()"
           />
         </div>
       </div>
@@ -43,11 +44,11 @@
     <div class="statistics">
       <div class="row">
         <div class="stat">Total time:</div>
-        <div class="data">56</div>
+        <div class="data">{{ taskTime }}</div>
       </div>
       <div class="row">
         <div class="stat">Sessions:</div>
-        <div class="data">3</div>
+        <div class="data">{{ taskSessions }}</div>
       </div>
     </div>
   </div>

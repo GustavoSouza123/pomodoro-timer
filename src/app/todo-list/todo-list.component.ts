@@ -4,6 +4,7 @@ import { TaskComponent } from './task/task.component';
 import { CommonModule } from '@angular/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.model';
+import { SessionsService } from './sessions.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -13,9 +14,16 @@ import { Task } from './task.model';
 })
 export class TodoListComponent implements OnInit {
   tasks?: Task[];
+  activeTask?: Task;
   edit: boolean = false;
 
-  constructor(private tasksService: TasksService) {}
+  taskTime!: number;
+  taskSessions!: number;
+
+  constructor(
+    private tasksService: TasksService,
+    private sessionsService: SessionsService
+  ) {}
 
   ngOnInit(): void {
     this.tasks = this.tasksService.getTasks();
@@ -27,6 +35,8 @@ export class TodoListComponent implements OnInit {
     this.tasksService.editClicked.subscribe((edit: boolean) => {
       this.edit = edit;
     });
+
+    this.setActiveTask();
   }
 
   handleTaskClick(id: number) {
@@ -35,5 +45,15 @@ export class TodoListComponent implements OnInit {
 
   onSaveClick() {
     this.tasksService.editClicked.emit(false);
+  }
+
+  setActiveTask() {
+    this.activeTask = this.tasks?.find((task) => task.active);
+    this.taskTime = this.sessionsService.sumTimeByTask(
+      this.activeTask?.id as number
+    );
+    this.taskSessions = this.sessionsService.getSessionsFromTask(
+      this.activeTask?.id as number
+    ).length;
   }
 }
