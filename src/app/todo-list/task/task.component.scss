@@ -16,16 +16,24 @@
     border-color: base.$border;
   }
 
+  &.edit:hover {
+    border: 1px solid base.$border-edit !important;
+  }
+
   &.edit {
+    border: 1px solid base.$border;
+
     .info {
       .title:hover,
       .description:hover {
-        outline: 1px solid base.$border;
+        // outline: 1px solid base.$border;
+        background-color: base.$input-edit-hover;
       }
 
       .title:focus,
       .description:focus {
-        outline: 3px solid base.$border;
+        // outline: 3px solid base.$border;
+        background-color: base.$input-edit-focus;
       }
     }
   }
@@ -52,6 +60,7 @@
     input {
       outline: none;
       border: none;
+      transition: 0.2s;
     }
 
     .title {
