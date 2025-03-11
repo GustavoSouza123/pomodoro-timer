@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleComponent } from '../title/title.component';
 import { TaskComponent } from './task/task.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.model';
 import { SessionsService } from './sessions.service';
+import { HtmlParser } from '@angular/compiler';
 
 @Component({
   selector: 'app-todo-list',
@@ -22,7 +23,7 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private tasksService: TasksService,
-    private sessionsService: SessionsService
+    private sessionsService: SessionsService // private scroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +31,17 @@ export class TodoListComponent implements OnInit {
 
     this.tasksService.taskCreated.subscribe((tasks: Task[]) => {
       this.tasks = tasks;
+      // this.scroller.scrollToAnchor('.tasks:last-child');
+
+      const tasksDiv = document.querySelector('.tasks-content');
+      const scrollHeight: number = tasksDiv?.scrollHeight as number;
+
+      setTimeout(() => {
+        tasksDiv?.scroll({
+          top: scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 100);
     });
 
     this.tasksService.editClicked.subscribe((edit: boolean) => {

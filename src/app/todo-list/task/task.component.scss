@@ -30,6 +30,12 @@
     }
   }
 
+  &:not(.edit) {
+    input {
+      cursor: pointer;
+    }
+  }
+
   input[type="checkbox"] {
     width: 20px;
     height: 20px;
@@ -43,10 +49,10 @@
     gap: 4px;
     flex-grow: 1;
 
-		input {
-			outline: none;
-			border: none;
-		}
+    input {
+      outline: none;
+      border: none;
+    }
 
     .title {
       font-size: 16px;
