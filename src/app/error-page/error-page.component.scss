@@ -1,0 +1,10 @@
+@use "../../base";
+@use "../../mixins";
+
+.error {
+  @include mixins.align-center();
+  width: 100%;
+  height: 100vh;
+  font-size: 32px;
+  font-weight: 500;
+}
