@@ -35,7 +35,7 @@
           </g>
         </svg>
       </div>
-      <div class="edit" (click)="onEditClick()">
+      <div class="edit" [ngClass]="{ active: edit }" (click)="onEditClick()">
         <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none">
           <title>Edit task</title>
           <path

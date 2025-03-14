@@ -28,7 +28,8 @@
         border-radius: 6px;
         cursor: pointer;
 
-        &:hover {
+        &:hover,
+				&.active {
           background: base.$hover-primary;
         }
 
