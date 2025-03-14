@@ -2,16 +2,59 @@
   <div class="title">Pomodoro Timer</div>
   <div class="login">
     <div class="title">Login</div>
-    <form>
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="input email">
         <label for="email">Email</label>
-        <input type="text" id="email" placeholder="Your email" />
+        <input
+          type="text"
+          name="email"
+          id="email"
+          placeholder="Your email"
+          required
+          [(ngModel)]="email"
+          #emailInput="ngModel"
+        />
+        <div
+          [hidden]="
+            form.submitted ||
+            emailInput.pristine ||
+            (!form.submitted && emailInput.valid)
+          "
+          class="error-message"
+        >
+          Email is required
+        </div>
       </div>
       <div class="input password">
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Your password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Your password"
+          required
+          [(ngModel)]="password"
+          #passwordInput="ngModel"
+        />
+        <div
+          [hidden]="
+            form.submitted ||
+            passwordInput.pristine ||
+            (!form.submitted && passwordInput.valid)
+          "
+          class="error-message"
+        >
+          Password is required
+        </div>
       </div>
-      <input class="button" type="submit" value="Sign In" />
+      <button
+        type="submit"
+        class="submit"
+        [ngClass]="{ disabled: !form.form.valid }"
+        [disabled]="!form.form.valid"
+      >
+        Sign In
+      </button>
       <div class="forgot">
         <a href="">Forgot password?</a>
       </div>
