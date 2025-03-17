@@ -2,7 +2,12 @@
   <div class="content">
     <div class="title">Pomodoro Timer with To-Do List</div>
     <div class="buttons">
-      <div class="btn" routerLink="login">Sign In</div>
+      <div class="btn" routerLink="/login" *ngIf="!loggedIn; else logged">
+        Sign in
+      </div>
+      <ng-template #logged>
+        <div class="btn" (click)="confirmSignout()">Sign out</div>
+      </ng-template>
     </div>
   </div>
 </header>
