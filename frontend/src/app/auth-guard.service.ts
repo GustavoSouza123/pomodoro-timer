@@ -20,8 +20,6 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): MaybeAsync<GuardResult> {
     return this.userService.isUserLoggedIn().then((loggedIn: boolean) => {
-      console.log(loggedIn);
-
       if (loggedIn) {
         return true;
       } else {
