@@ -1,7 +1,15 @@
 <div class="content">
   <div class="title">Pomodoro Timer</div>
   <div class="login">
-    <div class="title">Login</div>
+    <div class="title">
+      {{
+        formType === 'login'
+          ? 'Login'
+          : formType === 'signup'
+          ? 'Create an account'
+          : ''
+      }}
+    </div>
     <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="input email">
         <label for="email">Email</label>
@@ -53,10 +61,21 @@
         [ngClass]="{ disabled: !form.form.valid }"
         [disabled]="!form.form.valid"
       >
-        Sign In
+        {{
+          formType === 'login'
+            ? 'Sign in'
+            : formType === 'signup'
+            ? 'Sign up'
+            : ''
+        }}
       </button>
       <div class="forgot">
-        <a>Forgot password?</a>
+				<div *ngIf="formType === 'login'; else forgotSignup">
+					Don't have an account? <a routerLink="/signup">Sign up</a>
+				</div>
+				<ng-template #forgotSignup>
+					Already have an account? <a routerLink="/login">Login</a>
+				</ng-template>
       </div>
     </form>
   </div>

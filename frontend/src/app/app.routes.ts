@@ -18,6 +18,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    data: { form: 'login' },
+  },
+  {
+    path: 'signup',
+    component: LoginComponent,
+    data: { form: 'signup' },
   },
   {
     path: 'not-found',

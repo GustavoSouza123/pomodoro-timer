@@ -10,7 +10,7 @@ export class UserService {
     password: '1234',
   };
 
-  loggedIn: boolean = false;
+  loggedIn: boolean = true;
 
   isUserLoggedIn() {
     const promise = new Promise<boolean>((resolve, reject) => {

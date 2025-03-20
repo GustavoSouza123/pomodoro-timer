@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
+import { ActivatedRoute, Data, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './error-page.component.html',
   styleUrl: './error-page.component.scss',
 })
