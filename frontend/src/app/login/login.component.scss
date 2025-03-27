@@ -17,7 +17,7 @@
     font-weight: 600;
   }
 
-  .login {
+  .form {
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -43,14 +43,13 @@
         flex-direction: column;
         gap: 8px;
 
-        label {
-        }
+        // label {}
 
         input {
           padding: 12px 16px;
           font-size: 16px;
           border: 1px solid base.$border-form;
-          border-left: 3px solid base.$border-form;
+          // border-left: 3px solid base.$border-form;
           border-radius: 8px;
 
           &:focus {
@@ -59,14 +58,6 @@
 
           &::placeholder {
             color: base.$color-placeholder;
-          }
-
-          &.ng-valid.ng-dirty {
-            border-left: 3px solid green;
-          }
-
-          &.ng-invalid.ng-dirty {
-            border-left: 3px solid red;
           }
         }
 
@@ -121,6 +112,20 @@
 
           &:hover {
             color: base.$hover-secondary;
+          }
+        }
+      }
+    }
+
+    form.login {
+      & > .input {
+        input {
+          &.ng-valid.ng-dirty {
+            border-left: 3px solid #01ad01;
+          }
+
+          &.ng-invalid.ng-dirty {
+            border-left: 3px solid #e20000;
           }
         }
       }
