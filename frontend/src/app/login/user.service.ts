@@ -22,6 +22,13 @@ export class UserService {
     });
   }
 
+  createUser(email: string, password: string) {
+    return this.http.post<any>('http://localhost:8000/api/users', {
+      email,
+      password,
+    });
+  }
+
   isUserLoggedIn(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       resolve(this.loggedIn);
@@ -46,5 +53,17 @@ export class UserService {
 
   logout() {
     this.loggedIn = false;
+  }
+
+  checkUniqueUser(email: string) {
+    return new Promise<boolean>((resolve) => {
+      this.getUsers().subscribe((res) => {
+        let user = res.body.find((user: any) => user.email === email);
+        if (user) {
+          resolve(false);
+        }
+        resolve(true);
+      });
+    });
   }
 }

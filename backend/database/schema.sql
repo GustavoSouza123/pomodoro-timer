@@ -3,7 +3,8 @@ CREATE TABLE tasks (
 	title VARCHAR(255) NOT NULL,
 	description VARCHAR(255) NOT NULL,
 	favorite BOOLEAN NOT NULL,
-	active BOOLEAN NOT NULL
+	active BOOLEAN NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE sessions (

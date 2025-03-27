@@ -69,18 +69,6 @@
         }
       }
 
-      &.ng-submitted > .input {
-        input {
-          &.ng-valid {
-            border-left: 3px solid green;
-          }
-
-          &.ng-invalid {
-            border-left: 3px solid red;
-          }
-        }
-      }
-
       .submit {
         @include mixins.align-center();
         width: 100%;
@@ -121,10 +109,22 @@
       & > .input {
         input {
           &.ng-valid.ng-dirty {
-            border-left: 3px solid #01ad01;
+            border-left: 3px solid #02a402;
           }
 
           &.ng-invalid.ng-dirty {
+            border-left: 3px solid #e20000;
+          }
+        }
+      }
+
+      &.ng-submitted > .input {
+        input {
+          &.ng-valid {
+            border-left: 3px solid #02a402;
+          }
+
+          &.ng-invalid {
             border-left: 3px solid #e20000;
           }
         }

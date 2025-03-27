@@ -37,6 +37,21 @@ export class LoginComponent implements OnInit {
         }
       });
     } else if (this.formType === 'signup') {
+      this.userService.checkUniqueUser(this.email).then((uniqueUser) => {
+        if (uniqueUser) {
+          // create user in the database through POST request
+          this.userService
+            .createUser(this.email, this.password)
+            .subscribe((res) => {
+              if (res.success) {
+                alert('User created successfully');
+                this.router.navigate(['/login']);
+              }
+            });
+        } else {
+          alert('This email is already registered');
+        }
+      });
     }
   }
 }
