@@ -7,14 +7,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
+  // private user: User = {
+  //   email: '',
+  //   password: '',
+  // };
   private user: User = {
-    email: '',
-    password: '',
-  };
+    email: 'gustavo@gmail.com',
+    password: '1234',
+  }; // temporary user
 
-  loggedIn: boolean = false;
+  // loggedIn: boolean = false;
+  loggedIn: boolean = true;
 
   constructor(private http: HttpClient) {}
+
+  getUserData(): User {
+    return this.user;
+  }
 
   getUsers(): Observable<any> {
     return this.http.get<any>('http://localhost:8000/api/users', {

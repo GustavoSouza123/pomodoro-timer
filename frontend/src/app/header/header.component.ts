@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../login/user.service';
+import { User } from '../login/user.model';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ import { UserService } from '../login/user.service';
 })
 export class HeaderComponent implements OnInit {
   loggedIn!: boolean;
+  user!: User;
+  dropdownActive: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -18,6 +21,23 @@ export class HeaderComponent implements OnInit {
     this.userService.isUserLoggedIn().then((loggedIn: boolean) => {
       this.loggedIn = loggedIn;
     });
+
+    this.user = this.userService.getUserData();
+
+    window.addEventListener('click', () => {
+      if (this.dropdownActive) {
+        this.dropdownActive = false;
+      }
+    });
+  }
+
+  toggleDropdown(event: Event) {
+    event.stopPropagation();
+    this.dropdownActive = !this.dropdownActive;
+  }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
   }
 
   confirmSignout() {

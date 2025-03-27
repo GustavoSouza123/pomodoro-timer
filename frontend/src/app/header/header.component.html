@@ -6,7 +6,15 @@
         Sign in
       </div>
       <ng-template #logged>
-        <div class="btn" (click)="confirmSignout()">Sign out</div>
+        <div class="profile" (click)="toggleDropdown($event)">
+          <img src="profile.svg" alt="Profile icon" />
+        </div>
+        <div class="dropdown" [ngClass]="{ active: dropdownActive }">
+          <div class="btn" (click)="stopPropagation($event)">Edit profile</div>
+          <div class="btn" (click)="stopPropagation($event); confirmSignout()">
+            Sign out
+          </div>
+        </div>
       </ng-template>
     </div>
   </div>
