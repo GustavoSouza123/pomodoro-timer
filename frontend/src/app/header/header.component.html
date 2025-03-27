@@ -2,20 +2,27 @@
   <div class="content">
     <div class="title">Pomodoro Timer with To-Do List</div>
     <div class="buttons">
-      <div class="btn" routerLink="/login" *ngIf="!loggedIn; else logged">
-        Sign in
-      </div>
-      <ng-template #logged>
+      <div *ngIf="route === 'home'; else profile">
         <div class="profile" (click)="toggleDropdown($event)">
           <img src="profile.svg" alt="Profile icon" />
         </div>
         <div class="dropdown" [ngClass]="{ active: dropdownActive }">
-          <div class="btn" (click)="stopPropagation($event)">Edit profile</div>
+          <div class="btn" routerLink="/profile">Edit profile</div>
           <div class="btn" (click)="stopPropagation($event); confirmSignout()">
             Sign out
           </div>
         </div>
+      </div>
+
+      <ng-template #profile>
+        <div class="btn" routerLink="/home">Go to Home</div>
       </ng-template>
     </div>
   </div>
 </header>
+
+<!--
+<div class="btn" routerLink="/login" *ngIf="!loggedIn; else logged">
+	Sign in
+</div>
+-->
