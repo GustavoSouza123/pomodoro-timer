@@ -1,6 +1,6 @@
 <div class="content">
   <div class="title">Pomodoro Timer</div>
-  <div class="login">
+  <div class="form">
     <div class="title">
       {{
         formType === 'login'
@@ -10,7 +10,11 @@
           : ''
       }}
     </div>
-    <form (ngSubmit)="onSubmit()" #form="ngForm">
+    <form
+      [ngClass]="{ login: formType === 'login', signup: formType === 'signup' }"
+      (ngSubmit)="onSubmit()"
+      #form="ngForm"
+    >
       <div class="input email">
         <label for="email">Email</label>
         <input
@@ -70,12 +74,12 @@
         }}
       </button>
       <div class="forgot">
-				<div *ngIf="formType === 'login'; else forgotSignup">
-					Don't have an account? <a routerLink="/signup">Sign up</a>
-				</div>
-				<ng-template #forgotSignup>
-					Already have an account? <a routerLink="/login">Login</a>
-				</ng-template>
+        <div *ngIf="formType === 'login'; else forgotSignup">
+          Don't have an account? <a routerLink="/signup">Sign up</a>
+        </div>
+        <ng-template #forgotSignup>
+          Already have an account? <a routerLink="/login">Login</a>
+        </ng-template>
       </div>
     </form>
   </div>

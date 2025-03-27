@@ -24,17 +24,18 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe((data: Data) => {
       this.formType = data['form'];
-      console.log(this.formType);
     });
   }
 
   onSubmit() {
     if (this.formType === 'login') {
-      if (this.userService.login(this.email, this.password)) {
-        this.router.navigate(['/home']);
-      } else {
-        alert('Incorrect user or password');
-      }
+      this.userService.login(this.email, this.password).then((loggedIn) => {
+        if (loggedIn) {
+          this.router.navigate(['/home']);
+        } else {
+          alert('Incorrect user or password');
+        }
+      });
     } else if (this.formType === 'signup') {
     }
   }

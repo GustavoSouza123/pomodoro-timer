@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/users', userRoutes);
-app.use('/tasks', tasksRoutes);
-app.use('/sessions', sessionsRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/tasks', tasksRoutes);
+app.use('/api/sessions', sessionsRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'Server running!' });
