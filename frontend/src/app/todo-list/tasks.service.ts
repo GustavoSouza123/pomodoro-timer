@@ -7,6 +7,7 @@ import { Task } from './task.model';
 export class TasksService {
   taskCreated = new EventEmitter<Task[]>();
   editClicked = new EventEmitter<boolean>();
+	taskDeleted = new EventEmitter<Task[]>();
 
   private tasks: Task[] = [
     {
@@ -75,4 +76,9 @@ export class TasksService {
       }
     });
   }
+
+	deleteTask(id?: number) {
+		this.tasks.splice(this.tasks.findIndex(task => task.id === id), 1);
+		this.taskDeleted.emit(this.tasks.slice());
+	}
 }

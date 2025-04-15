@@ -3,13 +3,13 @@
     <div class="title">Pomodoro Timer with To-Do List</div>
     <div class="buttons">
       <div *ngIf="route === 'home'; else profile">
-        <div class="profile" (click)="toggleDropdown($event)">
-          <img src="profile.svg" alt="Profile icon" />
+				<div class="profile" (click)="toggleDropdown($event)">
+					<img src="profile.svg" alt="Profile icon" />
         </div>
         <div class="dropdown" [ngClass]="{ active: dropdownActive }">
           <div class="btn" routerLink="/profile">Edit profile</div>
           <div class="btn" (click)="stopPropagation($event); confirmSignout()">
-            Sign out
+						Sign out
           </div>
         </div>
       </div>
@@ -20,9 +20,3 @@
     </div>
   </div>
 </header>
-
-<!--
-<div class="btn" routerLink="/login" *ngIf="!loggedIn; else logged">
-	Sign in
-</div>
--->

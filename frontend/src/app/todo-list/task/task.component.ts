@@ -32,9 +32,14 @@ export class TaskComponent implements OnInit {
   }
 
   handleFavorite(event: Event, id?: number) {
-    if (!this.edit) {
-      event.stopPropagation();
-      this.tasksService.updateFavorite(id);
-    }
+		event.stopPropagation();
+		this.tasksService.updateFavorite(id);
+  }
+
+  handleDelete(event: Event, id?: number) {
+		if (confirm('Are you sure you want to delete this task?')) {
+			event.stopPropagation();
+			this.tasksService.deleteTask(id);
+		}
   }
 }

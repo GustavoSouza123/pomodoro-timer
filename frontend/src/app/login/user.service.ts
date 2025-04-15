@@ -31,7 +31,7 @@ export class UserService {
     });
   }
 
-  createUser(email: string, password: string) {
+  createUser(email: string, password: string): Observable<any> {
     return this.http.post<any>('http://localhost:8000/api/users', {
       email,
       password,
@@ -64,7 +64,7 @@ export class UserService {
     this.loggedIn = false;
   }
 
-  checkUniqueUser(email: string) {
+  checkUniqueUser(email: string): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       this.getUsers().subscribe((res) => {
         let user = res.body.find((user: any) => user.email === email);

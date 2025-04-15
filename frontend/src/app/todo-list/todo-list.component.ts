@@ -47,6 +47,11 @@ export class TodoListComponent implements OnInit {
       this.edit = edit;
     });
 
+    this.tasksService.taskDeleted.subscribe((tasks: Task[]) => {
+      this.tasks = tasks;
+			this.edit = false;
+    });
+
     this.setActiveTask();
   }
 
