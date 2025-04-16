@@ -7,7 +7,7 @@
       subtitle="Read and edit your profile information"
     ></app-title>
     <div class="form">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onUpdateUserSubmit()">
         <div class="input">
           <label for="id">User ID:</label>
           <input type="text" name="id" id="id" [value]="user.id" disabled />
@@ -51,5 +51,23 @@
 
   <div class="right">
     <app-title title="Settings" subtitle="Settings and preferences"></app-title>
+    <div class="form">
+      <form>
+        <div class="input">
+          <label for="created">Alarm sound:</label>
+          <button mat-raised-button [matMenuTriggerFor]="soundSelect">
+            <span>{{ settings.alarms[settings.selectedAlarm].file }}</span>
+            <mat-icon iconPositionEnd>expand_more</mat-icon>
+          </button>
+          <mat-menu #soundSelect="matMenu">
+            @for (alarm of settings.alarms; track alarm) {
+            <button (click)="onSelectAlarmSound($index)" mat-menu-item>
+              {{ alarm.file }}
+            </button>
+            }
+          </mat-menu>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

@@ -22,11 +22,19 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
 
   tabs: Tab[] = [
     {
-      id: 1,
-      name: 'Work',
+      id: 0,
+      name: 'Test',
       time: {
         minutes: 0,
         seconds: 2,
+      },
+    },
+    {
+      id: 1,
+      name: 'Work',
+      time: {
+        minutes: 25,
+        seconds: 0,
       },
     },
     {

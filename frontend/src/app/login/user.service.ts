@@ -15,7 +15,7 @@ export class UserService {
     created: '2025-03-18T23:29:07.000Z',
   };
 
-  loggedIn: boolean = true;
+  private loggedIn: boolean = true;
 
   constructor(private http: HttpClient) {}
 

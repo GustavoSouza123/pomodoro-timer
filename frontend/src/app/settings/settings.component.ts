@@ -5,37 +5,59 @@ import { HeaderComponent } from '../header/header.component';
 import { TitleComponent } from '../title/title.component';
 import { UserService } from '../login/user.service';
 import { User } from '../login/user.model';
+import { Settings, SettingsService } from './settings.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile',
-  imports: [CommonModule, FormsModule, HeaderComponent, TitleComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HeaderComponent,
+    TitleComponent,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
   user!: User;
+  settings!: Settings;
+
   email!: string;
   password!: string;
-	created!: string;
+  created!: string;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private settingsService: SettingsService
+  ) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUserData();
     this.email = this.user.email;
     this.password = this.user.password;
+    const date = new Date(this.user.created);
+    this.created = date.toLocaleDateString('pt-BR');
 
-		const date = new Date(this.user.created);
-		this.created = date.toLocaleDateString('pt-BR');
+    this.settings = this.settingsService.getSettings();
   }
 
-  onSubmit() {
+  onUpdateUserSubmit() {
     this.userService
       .updateUser(this.user.id, this.email, this.password)
       .subscribe((res) => {
-				if (res.success) {
-					alert('User updated successfully');
-				}
-			});
+        if (res.success) {
+          alert('User updated successfully');
+        }
+      });
   }
+
+	onSelectAlarmSound(id: number) {
+		this.settingsService.updateSelectedAlarm(id);
+	}
 }
