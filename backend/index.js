@@ -6,6 +6,7 @@ import tasksRoutes from './routes/tasks.routes.js';
 import sessionsRoutes from './routes/sessions.routes.js';
 
 const app = express();
+const port = process.env.PORT | 8080;
 
 app.use(express.json());
 app.use(cors());
@@ -18,6 +19,6 @@ app.get('/', (req, res) => {
     res.status(200).json({ message: 'Server running!' });
 });
 
-app.listen(8000, () => {
-    console.log(`Server running on http://localhost:8000`);
+app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
 });
