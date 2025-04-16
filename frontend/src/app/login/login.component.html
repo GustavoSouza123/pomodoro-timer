@@ -16,12 +16,11 @@
       #form="ngForm"
     >
       <div class="input email">
-        <label for="email">Email</label>
         <input
           type="text"
           name="email"
           id="email"
-          placeholder="Your email"
+          placeholder="Email"
           required
           [(ngModel)]="email"
           #emailInput="ngModel"
@@ -38,12 +37,11 @@
         </div>
       </div>
       <div class="input password">
-        <label for="password">Password</label>
         <input
           type="password"
           name="password"
           id="password"
-          placeholder="Your password"
+          placeholder="Password"
           required
           [(ngModel)]="password"
           #passwordInput="ngModel"
@@ -73,7 +71,7 @@
             : ''
         }}
       </button>
-      <div class="forgot">
+      <div class="link">
         <div *ngIf="formType === 'login'; else forgotSignup">
           Don't have an account? <a routerLink="/signup">Sign up</a>
         </div>
