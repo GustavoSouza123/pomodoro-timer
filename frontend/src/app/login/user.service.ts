@@ -7,16 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  // private user: User = {
-  //   email: '',
-  //   password: '',
-  // };
+  // private user!: User;
   private user: User = {
+    id: 1,
     email: 'gustavo@gmail.com',
     password: '1234',
-  }; // temporary user
+    created: '2025-03-18T23:29:07.000Z',
+  };
 
-  // loggedIn: boolean = false;
   loggedIn: boolean = true;
 
   constructor(private http: HttpClient) {}
@@ -38,6 +36,13 @@ export class UserService {
     });
   }
 
+  updateUser(id: number, email: string, password: string): Observable<any> {
+    return this.http.put<any>(`http://localhost:8000/api/users/${id}`, {
+      email,
+      password,
+    });
+  }
+
   isUserLoggedIn(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       resolve(this.loggedIn);
@@ -51,8 +56,7 @@ export class UserService {
           (user: any) => user.email === email && user.password === password
         );
         if (user) {
-          this.user.email = email;
-          this.user.password = password;
+          this.user = user;
           this.loggedIn = true;
         }
         resolve(this.loggedIn); // resolving the boolean after login check

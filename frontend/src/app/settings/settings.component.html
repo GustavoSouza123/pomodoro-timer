@@ -1,0 +1,55 @@
+<app-header route="profile" />
+
+<div class="content">
+  <div class="left">
+    <app-title
+      title="Edit profile"
+      subtitle="Read and edit your profile information"
+    ></app-title>
+    <div class="form">
+      <form (ngSubmit)="onSubmit()">
+        <div class="input">
+          <label for="id">User ID:</label>
+          <input type="text" name="id" id="id" [value]="user.id" disabled />
+        </div>
+        <div class="input">
+          <label for="created">Created at:</label>
+          <input
+            type="text"
+            name="created"
+            id="created"
+            [value]="created"
+            disabled
+          />
+        </div>
+        <div class="input email">
+          <label for="email">Email:</label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            required
+            [(ngModel)]="email"
+          />
+        </div>
+        <div class="input password">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            required
+            [(ngModel)]="password"
+          />
+        </div>
+        <button type="submit" class="submit">Update</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="right">
+    <app-title title="Settings" subtitle="Settings and preferences"></app-title>
+  </div>
+</div>

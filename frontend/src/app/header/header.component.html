@@ -7,7 +7,7 @@
 					<img src="profile.svg" alt="Profile icon" />
         </div>
         <div class="dropdown" [ngClass]="{ active: dropdownActive }">
-          <div class="btn" routerLink="/profile">Edit profile</div>
+          <div class="btn" routerLink="/settings">Settings</div>
           <div class="btn" (click)="stopPropagation($event); confirmSignout()">
 						Sign out
           </div>
