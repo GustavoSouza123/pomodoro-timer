@@ -4,6 +4,7 @@
     <div class="buttons">
       <div *ngIf="route === 'home'; else profile">
 				<div class="profile" (click)="toggleDropdown($event)">
+					<div class="name">{{ user.name }}</div>
 					<img src="profile.svg" alt="Profile icon" />
         </div>
         <div class="dropdown" [ngClass]="{ active: dropdownActive }">

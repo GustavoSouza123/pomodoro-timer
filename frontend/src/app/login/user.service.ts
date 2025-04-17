@@ -11,6 +11,7 @@ export class UserService {
   // private user!: User;
   private user: User = {
     id: 1,
+    name: 'Gustavo',
     email: 'gustavo@gmail.com',
     password: '1234',
     created: '2025-03-18T23:29:07.000Z',
@@ -39,6 +40,12 @@ export class UserService {
   }
 
   updateUser(id: number, name: string, email: string, password: string): Observable<any> {
+    this.user = {
+      ...this.user,
+      name,
+      email,
+      password,
+    };
     return this.http.put<any>(`${environment.apiUrl}/api/users/${id}`, {
       name,
       email,
