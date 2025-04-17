@@ -6,8 +6,8 @@ export interface Alarm {
 }
 
 export interface Settings {
-	selectedAlarm: number,
-	alarms: Alarm[],
+  selectedAlarm: number;
+  alarms: Alarm[];
 }
 
 @Injectable({
@@ -29,7 +29,7 @@ export class SettingsService {
     return this.settings;
   }
 
-	updateSelectedAlarm(id: number) {
-		this.settings.selectedAlarm = id;
-	}
+  updateSelectedAlarm(id: number) {
+    this.settings.selectedAlarm = id;
+  }
 }

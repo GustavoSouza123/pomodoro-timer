@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { User } from './user.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   // private user!: User;
-  private user: User = {
+	private user: User = {
     id: 1,
     email: 'gustavo@gmail.com',
     password: '1234',
@@ -24,20 +25,20 @@ export class UserService {
   }
 
   getUsers(): Observable<any> {
-    return this.http.get<any>('http://localhost:8000/api/users', {
+    return this.http.get<any>(`${environment.apiUrl}/api/users`, {
       observe: 'response',
     });
   }
 
   createUser(email: string, password: string): Observable<any> {
-    return this.http.post<any>('http://localhost:8000/api/users', {
+    return this.http.post<any>(`${environment.apiUrl}/api/users`, {
       email,
       password,
     });
   }
 
   updateUser(id: number, email: string, password: string): Observable<any> {
-    return this.http.put<any>(`http://localhost:8000/api/users/${id}`, {
+    return this.http.put<any>(`${environment.apiUrl}/api/users/${id}`, {
       email,
       password,
     });

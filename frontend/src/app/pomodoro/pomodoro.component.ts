@@ -1,18 +1,19 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TitleComponent } from '../title/title.component';
-import { Tab } from './tab.model';
+import { Settings, SettingsService } from '../settings/settings.service';
+import { MatIconModule } from '@angular/material/icon';
+
+interface Tab {
+  id: number;
+  name: string;
+  time: { minutes: number; seconds: number };
+}
 
 @Component({
   selector: 'app-pomodoro',
-  imports: [CommonModule, FormsModule, TitleComponent],
+  imports: [CommonModule, FormsModule, TitleComponent, MatIconModule],
   templateUrl: './pomodoro.component.html',
   styleUrl: './pomodoro.component.scss',
 })
@@ -55,16 +56,10 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  alarms: string[] = [
-    'mixkit-alarm-digital-clock-beep-989.wav',
-    'mixkit-alarm-tone-996.wav',
-    'mixkit-classic-short-alarm-993.wav',
-    'mixkit-security-facility-breach-alarm-994.wav',
-    'mixkit-warning-alarm-buzzer-991.wav',
-  ];
+  settings!: Settings;
+  selectedAlarm!: string;
 
   activeTab: Tab = this.tabs[0];
-  activeAlarm: number = 0;
 
   minutes: number = this.activeTab.time.minutes;
   seconds: number = this.activeTab.time.seconds;
@@ -73,9 +68,14 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
   timerStarted: boolean = false;
   isPaused: boolean = false;
   alarmStarted: boolean = false;
+	timer: any;
+
+  constructor(private settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.checkSeconds();
+    this.settings = this.settingsService.getSettings();
+    this.selectedAlarm = this.settings.alarms[this.settings.selectedAlarm].file;
   }
 
   ngAfterViewInit(): void {
@@ -95,18 +95,10 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
         this.isPaused = false;
       }
       if (this.alarmStarted) {
-        this.audioElement.nativeElement.pause();
-        this.audioElement.nativeElement.currentTime = 0;
-        this.timerStarted = false;
-        this.isPaused = false;
-        this.alarmStarted = false;
-        this.minutes = this.activeTab.time.minutes;
-        this.seconds = this.activeTab.time.seconds;
-        this.checkSeconds();
-        this.checkInputWidth();
+      	this.resetAlarm();
       }
     } else {
-      let timer = setInterval(() => {
+    	this.timer = setInterval(() => {
         if (!this.isPaused) {
           this.seconds--;
           if (this.seconds < 0) {
@@ -116,7 +108,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
           if (this.seconds === 0 && this.minutes === 0) {
             this.audioElement.nativeElement.play();
             this.alarmStarted = true;
-            clearInterval(timer);
+            clearInterval(this.timer);
           }
           this.checkSeconds();
           this.checkInputWidth();
@@ -127,9 +119,21 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
     }
   }
 
+  resetAlarm() {
+    this.audioElement.nativeElement.pause();
+    this.audioElement.nativeElement.currentTime = 0;
+    this.timerStarted = false;
+    this.isPaused = false;
+    this.alarmStarted = false;
+    this.minutes = this.activeTab.time.minutes;
+    this.seconds = this.activeTab.time.seconds;
+		clearInterval(this.timer);
+    this.checkSeconds();
+    this.checkInputWidth();
+  }
+
   checkSeconds() {
-    this.secondsStr =
-      this.seconds < 10 ? '0' + this.seconds : this.seconds.toString();
+    this.secondsStr = this.seconds < 10 ? '0' + this.seconds : this.seconds.toString();
   }
 
   checkInputWidth() {

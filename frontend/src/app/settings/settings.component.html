@@ -2,10 +2,7 @@
 
 <div class="content">
   <div class="left">
-    <app-title
-      title="Edit profile"
-      subtitle="Read and edit your profile information"
-    ></app-title>
+    <app-title title="Edit profile" subtitle="Read and edit your profile information"></app-title>
     <div class="form">
       <form (ngSubmit)="onUpdateUserSubmit()">
         <div class="input">
@@ -14,13 +11,7 @@
         </div>
         <div class="input">
           <label for="created">Created at:</label>
-          <input
-            type="text"
-            name="created"
-            id="created"
-            [value]="created"
-            disabled
-          />
+          <input type="text" name="created" id="created" [value]="created" disabled />
         </div>
         <div class="input email">
           <label for="email">Email:</label>
@@ -73,5 +64,5 @@
 </div>
 
 <audio #audio>
-	<source [src]="this.settings.alarms[this.settings.selectedAlarm].file" type="audio/wav" />
+  <source [src]="settings.alarms[settings.selectedAlarm].file" type="audio/wav" />
 </audio>

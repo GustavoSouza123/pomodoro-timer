@@ -1,5 +1,5 @@
-@use "../../base";
-@use "../../mixins";
+@use '../../base';
+@use '../../mixins';
 
 ::ng-deep app-pomodoro {
   width: 67%;
@@ -122,40 +122,65 @@ section {
       }
     }
 
-    .button {
-      @include mixins.align-center();
-      width: 130px;
-      height: 60px;
-      background-color: base.$secondary;
-      color: base.$primary;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.2s;
-      font-size: 18px;
+    .buttons {
+			position: relative;
+			display: flex;
+			align-items: center;
 
-      &:hover {
-        background-color: base.$hover-secondary;
-      }
-
-      svg {
-        width: 18px;
-        height: 18px;
-      }
-
-      .pause {
+      .button {
         @include mixins.align-center();
-        display: none;
-      }
+        width: 130px;
+        height: 60px;
+        background-color: base.$secondary;
+        color: base.$primary;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 18px;
 
-      & > div {
-        display: none;
-      }
+        &.reset {
+					position: absolute;
+					right: calc(-40px + -24px);
+					display: none;
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+					border-radius: 50%;
 
-      & > div.active {
-        display: flex;
+					&.active {
+						display: flex;
+					}
+        }
+
+        &:hover {
+          background-color: base.$hover-secondary;
+        }
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        .pause {
+          @include mixins.align-center();
+          display: none;
+        }
+
+        & > div {
+          display: none;
+        }
+
+        & > div.active {
+          display: flex;
+        }
       }
     }
   }
+}
+
+.mat-icon {
+	@include mixins.align-center();
+	font-size: 22px;
 }
 
 input::-webkit-outer-spin-button,
