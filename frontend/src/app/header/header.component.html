@@ -1,17 +1,15 @@
 <header>
   <div class="content">
     <div class="title">Pomodoro Timer with To-Do List</div>
-    <div class="buttons">
-      <div *ngIf="route === 'home'; else profile">
-				<div class="profile" (click)="toggleDropdown($event)">
-					<div class="name">{{ user.name }}</div>
-					<img src="profile.svg" alt="Profile icon" />
+    <div class="info">
+      <div *ngIf="route === 'home'; else profile" class="user">
+				<div class="name">Welcome, <span>{{ user.name }}</span>!</div>
+        <div class="profile" (click)="toggleDropdown($event)">
+          <img src="profile.svg" alt="Profile icon" />
         </div>
         <div class="dropdown" [ngClass]="{ active: dropdownActive }">
           <div class="btn" routerLink="/settings">Settings</div>
-          <div class="btn" (click)="stopPropagation($event); confirmSignout()">
-						Sign out
-          </div>
+          <div class="btn" (click)="stopPropagation($event); confirmSignout()">Sign out</div>
         </div>
       </div>
 

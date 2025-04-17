@@ -23,7 +23,7 @@ header {
       font-size: 22px;
     }
 
-    .buttons {
+    .info {
       position: relative;
       display: flex;
       align-items: center;
@@ -31,67 +31,81 @@ header {
       display: flex;
       justify-content: space-between;
 
-      .profile {
-        @include mixins.align-center();
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        cursor: pointer;
-        background-color: base.$terciary;
-        transition: 0.2s;
+      .user {
+				display: flex;
+				align-items: center;
+				gap: 16px;
 
-        &:hover {
-          background-color: base.$hover-terciary;
-        }
+				.name {
+					padding-bottom: 4px;
 
-        img {
-          width: 50%;
-        }
-      }
-
-      .dropdown {
-        position: absolute;
-        top: calc(40px + 12px);
-        right: 0px;
-        display: none;
-        flex-direction: column;
-        width: 120px;
-        background-color: base.$dropdown-bg;
-        border-radius: 5px;
-
-				&.active {
-					display: flex;
+					span {
+						font-weight: 700;
+					}
 				}
 
-        .btn {
-          width: 100%;
-          padding: 16px;
+        .profile {
+          @include mixins.align-center();
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
           cursor: pointer;
-          border-radius: 5px;
+          background-color: base.$terciary;
           transition: 0.2s;
 
           &:hover {
             background-color: base.$hover-terciary;
           }
+
+          img {
+            width: 50%;
+          }
+        }
+
+        .dropdown {
+          position: absolute;
+          top: calc(40px + 12px);
+          right: 0px;
+          display: none;
+          flex-direction: column;
+          width: 120px;
+          background-color: base.$dropdown-bg;
+          border-radius: 5px;
+
+          &.active {
+            display: flex;
+          }
+
+          .btn {
+            width: 100%;
+            padding: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.2s;
+
+            &:hover {
+              background-color: base.$hover-terciary;
+            }
+          }
         }
       }
 
-      & > .btn {
-        @include mixins.align-center();
-        background-color: base.$secondary;
-        color: base.$primary;
-        height: 100%;
-        padding: 0 16px;
-        border-radius: 12px;
+			& > .btn {
+				@include mixins.align-center();
+				background-color: base.$secondary;
+				color: base.$primary;
+				height: 100%;
+				padding: 0 16px;
+				border-radius: 12px;
 				padding-bottom: 4px;
-        cursor: pointer;
-        transition: 0.2s;
-        font-weight: 400;
+				cursor: pointer;
+				transition: 0.2s;
+				font-weight: 400;
 
-        &:hover {
-          background-color: base.$hover-secondary;
-        }
-      }
+				&:hover {
+					background-color: base.$hover-secondary;
+				}
+			}
     }
   }
 }
