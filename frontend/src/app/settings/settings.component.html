@@ -56,13 +56,13 @@
         <div class="input">
           <label for="created">Alarm sound:</label>
           <button mat-raised-button [matMenuTriggerFor]="soundSelect">
-            <span>{{ settings.alarms[settings.selectedAlarm].file }}</span>
+            <span>{{ settings.alarms[settings.selectedAlarm].name }}</span>
             <mat-icon iconPositionEnd>expand_more</mat-icon>
           </button>
           <mat-menu #soundSelect="matMenu">
             @for (alarm of settings.alarms; track alarm) {
-            <button (click)="onSelectAlarmSound($index)" mat-menu-item>
-              {{ alarm.file }}
+            <button class="option" (click)="onSelectAlarmSound($index)" mat-menu-item>
+              {{ alarm.name }}
             </button>
             }
           </mat-menu>
@@ -71,3 +71,7 @@
     </div>
   </div>
 </div>
+
+<audio #audio>
+	<source [src]="this.settings.alarms[this.settings.selectedAlarm].file" type="audio/wav" />
+</audio>

@@ -1,6 +1,5 @@
 @use '../../base';
 @use '../../mixins';
-@use '@angular/material' as mat;
 
 .content {
   display: flex;
@@ -84,7 +83,6 @@
   }
 }
 
-.mat-mdc-raised-button,
-.mat-mdc-menu-item {
-	font-family: base.$font-stack !important;
-}P
+.mat-mdc-raised-button {
+	background-color: #fff !important;
+}

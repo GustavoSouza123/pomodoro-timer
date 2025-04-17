@@ -17,11 +17,11 @@ export class SettingsService {
   private settings: Settings = {
     selectedAlarm: 0,
     alarms: [
-      { name: '', file: 'mixkit-alarm-digital-clock-beep-989.wav' },
-      { name: '', file: 'mixkit-alarm-tone-996.wav' },
-      { name: '', file: 'mixkit-classic-short-alarm-993.wav' },
-      { name: '', file: 'mixkit-security-facility-breach-alarm-994.wav' },
-      { name: '', file: 'mixkit-warning-alarm-buzzer-991.wav' },
+      { name: 'Sound 1', file: 'mixkit-alarm-digital-clock-beep-989.wav' },
+      { name: 'Sound 2', file: 'mixkit-alarm-tone-996.wav' },
+      { name: 'Sound 3', file: 'mixkit-classic-short-alarm-993.wav' },
+      { name: 'Sound 4', file: 'mixkit-security-facility-breach-alarm-994.wav' },
+      { name: 'Sound 5', file: 'mixkit-warning-alarm-buzzer-991.wav' },
     ],
   };
 

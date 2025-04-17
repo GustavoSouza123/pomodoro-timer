@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
@@ -25,6 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
+  @ViewChild('audio') audioElement!: ElementRef;
+
   user!: User;
   settings!: Settings;
 
@@ -57,7 +59,12 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-	onSelectAlarmSound(id: number) {
-		this.settingsService.updateSelectedAlarm(id);
-	}
+  onSelectAlarmSound(id: number) {
+    this.settingsService.updateSelectedAlarm(id);
+    this.audioElement.nativeElement.src = this.settings.alarms[this.settings.selectedAlarm].file;
+
+    this.audioElement.nativeElement.pause();
+    this.audioElement.nativeElement.currentTime = 0;
+    this.audioElement.nativeElement.play();
+  }
 }
