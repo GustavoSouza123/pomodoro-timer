@@ -2,19 +2,30 @@
   <div class="title">Pomodoro Timer</div>
   <div class="form">
     <div class="title">
-      {{
-        formType === 'login'
-          ? 'Login'
-          : formType === 'signup'
-          ? 'Create an account'
-          : ''
-      }}
+      {{ formType === 'login' ? 'Login' : formType === 'signup' ? 'Create an account' : '' }}
     </div>
     <form
       [ngClass]="{ login: formType === 'login', signup: formType === 'signup' }"
       (ngSubmit)="onSubmit()"
       #form="ngForm"
     >
+      <div class="input name" *ngIf="formType === 'signup'">
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Name"
+          required
+          [(ngModel)]="name"
+          #nameInput="ngModel"
+        />
+        <div
+          [hidden]="form.submitted || nameInput.pristine || (!form.submitted && nameInput.valid)"
+          class="error-message"
+        >
+          Name is required
+        </div>
+      </div>
       <div class="input email">
         <input
           type="text"
@@ -26,11 +37,7 @@
           #emailInput="ngModel"
         />
         <div
-          [hidden]="
-            form.submitted ||
-            emailInput.pristine ||
-            (!form.submitted && emailInput.valid)
-          "
+          [hidden]="form.submitted || emailInput.pristine || (!form.submitted && emailInput.valid)"
           class="error-message"
         >
           Email is required
@@ -48,9 +55,7 @@
         />
         <div
           [hidden]="
-            form.submitted ||
-            passwordInput.pristine ||
-            (!form.submitted && passwordInput.valid)
+            form.submitted || passwordInput.pristine || (!form.submitted && passwordInput.valid)
           "
           class="error-message"
         >
@@ -63,13 +68,7 @@
         [ngClass]="{ disabled: !form.form.valid }"
         [disabled]="!form.form.valid"
       >
-        {{
-          formType === 'login'
-            ? 'Sign in'
-            : formType === 'signup'
-            ? 'Sign up'
-            : ''
-        }}
+        {{ formType === 'login' ? 'Sign in' : formType === 'signup' ? 'Sign up' : '' }}
       </button>
       <div class="link">
         <div *ngIf="formType === 'login'; else forgotSignup">

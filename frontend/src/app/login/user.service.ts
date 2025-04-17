@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment.development';
 })
 export class UserService {
   // private user!: User;
-	private user: User = {
+  private user: User = {
     id: 1,
     email: 'gustavo@gmail.com',
     password: '1234',
@@ -30,15 +30,17 @@ export class UserService {
     });
   }
 
-  createUser(email: string, password: string): Observable<any> {
+  createUser(name: string, email: string, password: string): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/api/users`, {
+      name,
       email,
       password,
     });
   }
 
-  updateUser(id: number, email: string, password: string): Observable<any> {
+  updateUser(id: number, name: string, email: string, password: string): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/api/users/${id}`, {
+      name,
       email,
       password,
     });
@@ -53,9 +55,7 @@ export class UserService {
   login(email: string, password: string): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       this.getUsers().subscribe((res) => {
-        let user = res.body.find(
-          (user: any) => user.email === email && user.password === password
-        );
+        let user = res.body.find((user: any) => user.email === email && user.password === password);
         if (user) {
           this.user = user;
           this.loggedIn = true;

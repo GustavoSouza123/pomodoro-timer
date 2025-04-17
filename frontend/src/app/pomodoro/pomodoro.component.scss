@@ -150,6 +150,11 @@ section {
 					&.active {
 						display: flex;
 					}
+
+					.mat-icon {
+						@include mixins.align-center();
+						font-size: 22px;
+					}
         }
 
         &:hover {
@@ -176,11 +181,6 @@ section {
       }
     }
   }
-}
-
-.mat-icon {
-	@include mixins.align-center();
-	font-size: 22px;
 }
 
 input::-webkit-outer-spin-button,

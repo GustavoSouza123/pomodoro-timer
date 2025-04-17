@@ -11,9 +11,9 @@ export async function getUsers(req, res) {
 
 export async function createUser(req, res) {
     try {
-        const values = [req.body.email, req.body.password];
+        const values = [req.body.name, req.body.email, req.body.password];
         const [rows] = await db.query(
-            'INSERT INTO users (email, password) VALUES (?, ?)',
+            'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
             values
         );
         return res.status(200).json({
@@ -28,9 +28,9 @@ export async function createUser(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const values = [req.body.email, req.body.password, req.params.id];
+        const values = [req.body.name, req.body.email, req.body.password, req.params.id];
         const [rows] = await db.query(
-            'UPDATE users SET email = ?, password = ? WHERE id = ?',
+            'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?',
             values
         );
         return res.status(200).json({

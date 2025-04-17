@@ -30,17 +30,16 @@ export class SettingsComponent implements OnInit {
   user!: User;
   settings!: Settings;
 
+  name!: string;
   email!: string;
   password!: string;
   created!: string;
 
-  constructor(
-    private userService: UserService,
-    private settingsService: SettingsService
-  ) {}
+  constructor(private userService: UserService, private settingsService: SettingsService) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUserData();
+    this.name = this.user.name;
     this.email = this.user.email;
     this.password = this.user.password;
     const date = new Date(this.user.created);
@@ -51,10 +50,12 @@ export class SettingsComponent implements OnInit {
 
   onUpdateUserSubmit() {
     this.userService
-      .updateUser(this.user.id, this.email, this.password)
+      .updateUser(this.user.id, this.name, this.email, this.password)
       .subscribe((res) => {
         if (res.success) {
           alert('User updated successfully');
+        } else {
+          alert(res.message);
         }
       });
   }

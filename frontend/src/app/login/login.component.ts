@@ -12,6 +12,7 @@ import { ActivatedRoute, Data, Router, RouterLink } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   formType!: string;
+  name: string = '';
   email: string = '';
   password: string = '';
 
@@ -40,14 +41,14 @@ export class LoginComponent implements OnInit {
       this.userService.checkUniqueUser(this.email).then((uniqueUser) => {
         if (uniqueUser) {
           // create user in the database through POST request
-          this.userService
-            .createUser(this.email, this.password)
-            .subscribe((res) => {
-              if (res.success) {
-                alert('User created successfully');
-                this.router.navigate(['/login']);
-              }
-            });
+          this.userService.createUser(this.name, this.email, this.password).subscribe((res) => {
+            if (res.success) {
+              alert('User created successfully');
+              this.router.navigate(['/login']);
+            } else {
+              alert(res.message);
+            }
+          });
         } else {
           alert('This email is already registered');
         }
