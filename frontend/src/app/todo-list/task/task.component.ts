@@ -18,22 +18,28 @@ export class TaskComponent implements OnInit {
   @Output() taskDeleted = new EventEmitter<boolean>();
 
   favorite!: boolean;
-  taskTitleInput!: string;
-  taskDescriptionInput!: string;
+  timeout: any;
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
     this.favorite = Boolean(this.task.favorite);
-    this.taskTitleInput = this.task.title;
-    this.taskDescriptionInput = this.task.description;
   }
 
   handleClick(id?: number) {
     if (!this.edit) {
       this.taskClicked.emit(id);
     }
-}
+  }
+
+  handleEditTask() {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.tasksService.updateTask(this.task).subscribe((res) => {
+				this.tasksService.activeTaskUpdated.emit(this.task);
+			});
+    }, 500);
+  }
 
   handleFavorite(event: Event) {
     event.stopPropagation();
@@ -50,8 +56,8 @@ export class TaskComponent implements OnInit {
     if (confirm('Are you sure you want to delete this task?')) {
       event.stopPropagation();
       this.tasksService.deleteTask(id).subscribe((res) => {
-				this.taskDeleted.emit(true);
-			});
+        this.taskDeleted.emit(true);
+      });
     }
   }
 }

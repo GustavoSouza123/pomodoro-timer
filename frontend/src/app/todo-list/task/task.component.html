@@ -10,12 +10,14 @@
       class="title"
       [readOnly]="!edit"
       [(ngModel)]="task.title"
+			(input)="handleEditTask()"
     />
     <input
       type="text"
       class="description"
       [readOnly]="!edit"
       [(ngModel)]="task.description"
+			(input)="handleEditTask()"
     />
   </div>
   <div

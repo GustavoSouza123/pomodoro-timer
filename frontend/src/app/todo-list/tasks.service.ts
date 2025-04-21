@@ -73,6 +73,14 @@ export class TasksService {
     });
   }
 
+	updateTask(task: Task) {
+		return this.http.put<any>(`${environment.apiUrl}/api/tasks/${task.id}`, {
+      title: task.title,
+      description: task.description,
+      favorite: !task.favorite,
+    });
+	}
+
   updateActive(id: number): Observable<any> {
     this.getTasks().subscribe((res) => {
       res.body.forEach((task: any) => {
