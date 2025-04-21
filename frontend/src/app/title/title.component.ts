@@ -17,7 +17,14 @@ export class TitleComponent {
   constructor(private tasksService: TasksService) {}
 
   onAddClick() {
-    this.tasksService.createTask();
+    this.tasksService.createTask('My task', 'Description of my task').subscribe((res) => {
+      if (res.success) {
+				this.tasksService.taskCreated.emit(true);
+        alert('Task created successfully');
+      } else {
+        alert(res.message);
+      }
+    });
   }
 
   onEditClick() {

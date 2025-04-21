@@ -14,22 +14,24 @@ import { SessionsService } from './sessions.service';
 })
 export class TodoListComponent implements OnInit {
   tasks?: Task[];
+  activeTaskId!: number;
   activeTask?: Task;
   edit: boolean = false;
 
   taskTime!: number;
   taskSessions!: number;
 
-  constructor(
-    private tasksService: TasksService,
-    private sessionsService: SessionsService
-  ) {}
+  constructor(private tasksService: TasksService, private sessionsService: SessionsService) {}
 
   ngOnInit(): void {
-    this.tasks = this.tasksService.getTasks();
+    this.tasksService.getTasks().subscribe((res) => {
+      this.tasks = res.body;
+    });
 
-    this.tasksService.taskCreated.subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
+    this.tasksService.taskCreated.subscribe(() => {
+      this.tasksService.getTasks().subscribe((res) => {
+        this.tasks = res.body;
+      });
 
       const tasksDiv = document.querySelector('.tasks-content');
       const scrollHeight: number = tasksDiv?.scrollHeight as number;
@@ -40,7 +42,7 @@ export class TodoListComponent implements OnInit {
           top: scrollHeight,
           behavior: 'smooth',
         });
-      }, 100);
+      }, 500);
     });
 
     this.tasksService.editClicked.subscribe((edit: boolean) => {
@@ -49,14 +51,19 @@ export class TodoListComponent implements OnInit {
 
     this.tasksService.taskDeleted.subscribe((tasks: Task[]) => {
       this.tasks = tasks;
-			this.edit = false;
+      this.edit = false;
     });
 
     this.setActiveTask();
   }
 
   handleTaskClick(id: number) {
-    this.tasksService.updateActive(id);
+    this.tasksService.updateActive(id).subscribe(res => {
+			this.activeTaskId = id;
+			this.tasksService.getTask(this.activeTaskId).then((task) => {
+        this.activeTask = task;
+      });
+		});
   }
 
   onSaveClick() {
@@ -64,10 +71,19 @@ export class TodoListComponent implements OnInit {
   }
 
   setActiveTask() {
-    this.activeTask = this.tasks?.find((task) => task.active);
-    this.taskTime = this.sessionsService.sumTimeByTask(
-      this.activeTask?.id as number
-    );
+    this.tasksService.getActiveTask().subscribe((res) => {
+      this.activeTaskId = res.body[0].taskId;
+
+      this.tasksService.getTask(this.activeTaskId).then((task) => {
+        this.activeTask = task;
+      });
+    });
+
+		console.log(this.activeTaskId)
+		console.log(this.activeTask)
+
+		// not working
+    this.taskTime = this.sessionsService.sumTimeByTask(this.activeTask?.id as number);
     this.taskSessions = this.sessionsService.getSessionsFromTask(
       this.activeTask?.id as number
     ).length;

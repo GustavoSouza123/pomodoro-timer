@@ -6,8 +6,7 @@ export async function getTasks(req, res) {
         return res.status(200).json(rows);
     } catch (error) {
         return res.json(error);
-    }
-}
+    }}
 
 export async function createTask(req, res) {
     try {
@@ -15,10 +14,9 @@ export async function createTask(req, res) {
             req.body.title,
             req.body.description,
             req.body.favorite,
-            req.body.active,
         ];
         const [rows] = await db.query(
-            'INSERT INTO tasks (title, description, favorite, active) VALUES (?, ?, ?, ?)',
+            'INSERT INTO tasks (title, description, favorite) VALUES (?, ?, ?)',
             values
         );
         return res.status(200).json({
@@ -37,11 +35,10 @@ export async function updateTask(req, res) {
             req.body.title,
             req.body.description,
             req.body.favorite,
-            req.body.active,
             req.params.id,
         ];
         const [rows] = await db.query(
-            'UPDATE tasks SET title = ?, description = ?, favorite = ?, active = ? WHERE id = ?',
+            'UPDATE tasks SET title = ?, description = ?, favorite = ? WHERE id = ?',
             values
         );
         return res.status(200).json({
@@ -63,6 +60,34 @@ export async function deleteTask(req, res) {
         return res.status(200).json({
             success: true,
             message: 'Task deleted successfully',
+            rows,
+        });
+    } catch (error) {
+        return res.json(error);
+    }
+}
+
+// activeTask table
+
+export async function getActiveTask(req, res) {
+    try {
+        const [rows] = await db.query('SELECT * FROM activeTask');
+        return res.status(200).json(rows);
+    } catch (error) {
+        return res.json(error);
+    }
+}
+
+export async function updateActiveTask(req, res) {
+    try {
+        const values = [req.body.taskId];
+        const [rows] = await db.query(
+            'UPDATE activeTask SET taskId = ? WHERE id = 1',
+            values
+        );
+        return res.status(200).json({
+            success: true,
+            message: 'Active task updated successfully',
             rows,
         });
     } catch (error) {

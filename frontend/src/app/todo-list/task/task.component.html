@@ -1,9 +1,9 @@
 <div
   class="task"
-  [ngClass]="{ active: task.active, edit: edit }"
+  [ngClass]="{ active: activeTask === task.id, edit: edit }"
   (click)="handleClick(task.id)"
 >
-  <input type="radio" name="task1" id="task1" [checked]="this.task.active" />
+  <input type="radio" name="task1" id="task1" [checked]="activeTask === task.id" />
   <div class="info">
     <input
       type="text"

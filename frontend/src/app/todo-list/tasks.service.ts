@@ -1,77 +1,90 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable, resolveForwardRef } from '@angular/core';
 import { Task } from './task.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
-  taskCreated = new EventEmitter<Task[]>();
-	taskClicked = new EventEmitter<Task>();
+  taskClicked = new EventEmitter<Task>();
+  taskCreated = new EventEmitter<boolean>();
   editClicked = new EventEmitter<boolean>();
   taskDeleted = new EventEmitter<Task[]>();
 
-  private tasks: Task[] = [
-    {
-      id: 1,
-      title: 'Learn Angular',
-      description: 'A short description of my task',
-      favorite: false,
-      active: true,
-    },
-    {
-      id: 2,
-      title: 'Read the Bible',
-      description: 'A short description of my task',
-      favorite: false,
-      active: false,
-    },
-    {
-      id: 3,
-      title: 'Read my books',
-      description: 'A short description of my task',
-      favorite: true,
-      active: false,
-    },
-    {
-      id: 4,
-      title: 'Learn german',
-      description: 'A short description of my task',
-      favorite: false,
-      active: false,
-    },
-  ];
+  private tasks!: Task[];
+  // private tasks: Task[] = [
+  //   {
+  //     id: 1,
+  //     title: 'Learn Angular',
+  //     description: 'A short description of my task',
+  //     favorite: false,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: 'Read the Bible',
+  //     description: 'A short description of my task',
+  //     favorite: false,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: 'Read my books',
+  //     description: 'A short description of my task',
+  //     favorite: true,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: 'Learn german',
+  //     description: 'A short description of my task',
+  //     favorite: false,
+  //   },
+  // ];
 
-  getTasks() {
-    return this.tasks.slice();
+  constructor(private http: HttpClient) {}
+
+  getTasks(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/api/tasks`, {
+      observe: 'response',
+    });
   }
 
-  getTask(id: number) {
-    return this.tasks.find((task) => task.id === id);
+  getTask(id: number): Promise<Task> {
+    return new Promise<Task>((resolve) => {
+      this.getTasks().subscribe((res) => {
+        if (res.body.length) {
+          let task = res.body.find((task: any) => task.id === id);
+          resolve(task);
+        }
+      });
+    });
   }
 
-  getActiveTask() {
-    return this.tasks.find((task) => task.active);
+  getActiveTask(): Observable<any> {
+		return this.http.get<any>(`${environment.apiUrl}/api/activeTask`, {
+      observe: 'response',
+    });
   }
 
-  createTask() {
-    this.tasks.push({
-      id: this.tasks.length + 1,
-      title: 'New task',
-      description: 'A description of my new task',
+  createTask(title: string, description: string): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/api/tasks`, {
+      title,
+      description,
       favorite: false,
-      active: false,
+    });
+  }
+
+  updateActive(id: number): Observable<any> {
+    this.getTasks().subscribe((res) => {
+      res.body.forEach((task: any) => {
+        if (task.id === id) {
+          this.taskClicked.emit(task);
+        }
+      });
     });
 
-    this.taskCreated.emit(this.tasks.slice());
-  }
-
-  updateActive(id: number) {
-    this.tasks.forEach((task) => {
-      task.active = false;
-      if (task.id === id) {
-        task.active = true;
-				this.taskClicked.emit(task);
-      }
+    return this.http.put<any>(`${environment.apiUrl}/api/activeTask`, {
+      taskId: id,
     });
   }
 

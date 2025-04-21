@@ -15,12 +15,17 @@ export class TaskComponent implements OnInit {
   @Input() edit: boolean = false;
   @Output() taskClicked = new EventEmitter<number>();
 
+	activeTask!: number;
   taskTitleInput!: string;
   taskDescriptionInput!: string;
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
+		this.tasksService.getActiveTask().subscribe((res) => {
+			this.activeTask = res.body[0].taskId;
+    });
+
     this.taskTitleInput = this.task.title;
     this.taskDescriptionInput = this.task.description;
   }

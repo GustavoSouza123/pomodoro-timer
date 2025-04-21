@@ -28,7 +28,12 @@ export async function createUser(req, res) {
 
 export async function updateUser(req, res) {
     try {
-        const values = [req.body.name, req.body.email, req.body.password, req.params.id];
+        const values = [
+            req.body.name,
+            req.body.email,
+            req.body.password,
+            req.params.id,
+        ];
         const [rows] = await db.query(
             'UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?',
             values

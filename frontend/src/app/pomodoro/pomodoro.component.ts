@@ -72,7 +72,8 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
   alarmStarted: boolean = false;
   timer: any;
 
-	activeTask?: Task;
+  activeTaskId!: number;
+  activeTask?: Task;
 
   constructor(private settingsService: SettingsService, private tasksService: TasksService) {}
 
@@ -81,11 +82,17 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
     this.settings = this.settingsService.getSettings();
     this.selectedAlarm = this.settings.alarms[this.settings.selectedAlarm].file;
 
-		this.tasksService.taskClicked.subscribe(activeTask => {
-			this.activeTask = activeTask;
-		});
+    this.tasksService.taskClicked.subscribe((activeTask) => {
+      this.activeTask = activeTask;
+    });
 
-		this.activeTask = this.tasksService.getActiveTask();
+    this.tasksService.getActiveTask().subscribe((res) => {
+      this.activeTaskId = res.body[0].taskId;
+
+      this.tasksService.getTask(this.activeTaskId).then((task) => {
+        this.activeTask = task;
+      });
+    });
   }
 
   ngAfterViewInit(): void {
