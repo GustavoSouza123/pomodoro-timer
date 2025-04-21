@@ -12,34 +12,6 @@ export class TasksService {
   activeTaskUpdated = new EventEmitter<Task>();
   editClicked = new EventEmitter<boolean>();
 
-  private tasks!: Task[];
-  // private tasks: Task[] = [
-  //   {
-  //     id: 1,
-  //     title: 'Learn Angular',
-  //     description: 'A short description of my task',
-  //     favorite: false,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Read the Bible',
-  //     description: 'A short description of my task',
-  //     favorite: false,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Read my books',
-  //     description: 'A short description of my task',
-  //     favorite: true,
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Learn german',
-  //     description: 'A short description of my task',
-  //     favorite: false,
-  //   },
-  // ];
-
   constructor(private http: HttpClient) {}
 
   getTasks(): Observable<any> {

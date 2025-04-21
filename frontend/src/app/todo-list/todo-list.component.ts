@@ -28,16 +28,16 @@ export class TodoListComponent implements OnInit {
     this.tasksService.taskCreated.subscribe(() => {
       this.getTasks();
 
-      const tasksDiv = document.querySelector('.tasks-content');
-      const scrollHeight: number = tasksDiv?.scrollHeight as number;
-
       // scroll down when adding task
       setTimeout(() => {
+        const tasksDiv = document.querySelector('.tasks-content');
+        const scrollHeight: number = tasksDiv?.scrollHeight as number;
+
         tasksDiv?.scroll({
           top: scrollHeight,
           behavior: 'smooth',
         });
-      }, 500);
+      }, 1000);
     });
 
     this.tasksService.editClicked.subscribe((edit: boolean) => {
@@ -59,10 +59,10 @@ export class TodoListComponent implements OnInit {
     });
   }
 
-	handleTaskDelete() {
-		this.edit = false;
+  handleTaskDelete() {
+    this.edit = false;
     this.getTasks();
-	}
+  }
 
   onSaveClick() {
     this.tasksService.editClicked.emit(false);
