@@ -1,9 +1,9 @@
 <div
   class="task"
-  [ngClass]="{ active: activeTask === task.id, edit: edit }"
+  [ngClass]="{ active: active, edit: edit }"
   (click)="handleClick(task.id)"
 >
-  <input type="radio" name="task1" id="task1" [checked]="activeTask === task.id" />
+  <input type="radio" name="task1" id="task1" [checked]="active" />
   <div class="info">
     <input
       type="text"
@@ -21,10 +21,10 @@
   <div
     class="favorite"
     *ngIf="!edit; else deleteTask"
-    (click)="handleFavorite($event, task.id)"
+    (click)="handleFavorite($event)"
   >
     <svg
-      *ngIf="!this.task.favorite; else favorite"
+      *ngIf="!favorite; else favoriteRef"
       fill="#000000"
       viewBox="0 0 36 36"
       version="1.1"
@@ -42,7 +42,7 @@
         />
       </g>
     </svg>
-    <ng-template #favorite>
+    <ng-template #favoriteRef>
       <svg
         fill="#4a4a4a"
         viewBox="0 0 36 36"

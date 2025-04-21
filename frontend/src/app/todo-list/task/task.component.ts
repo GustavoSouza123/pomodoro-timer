@@ -13,19 +13,18 @@ import { TasksService } from '../tasks.service';
 export class TaskComponent implements OnInit {
   @Input() task!: Task;
   @Input() edit: boolean = false;
+  @Input() active: boolean = false;
   @Output() taskClicked = new EventEmitter<number>();
+  @Output() taskDeleted = new EventEmitter<boolean>();
 
-	activeTask!: number;
+  favorite!: boolean;
   taskTitleInput!: string;
   taskDescriptionInput!: string;
 
   constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
-		this.tasksService.getActiveTask().subscribe((res) => {
-			this.activeTask = res.body[0].taskId;
-    });
-
+    this.favorite = Boolean(this.task.favorite);
     this.taskTitleInput = this.task.title;
     this.taskDescriptionInput = this.task.description;
   }
@@ -34,17 +33,25 @@ export class TaskComponent implements OnInit {
     if (!this.edit) {
       this.taskClicked.emit(id);
     }
-  }
+}
 
-  handleFavorite(event: Event, id?: number) {
-		event.stopPropagation();
-		this.tasksService.updateFavorite(id);
+  handleFavorite(event: Event) {
+    event.stopPropagation();
+    this.tasksService.updateFavorite(this.task).subscribe((res) => {
+      if (res.success) {
+        this.favorite = !this.favorite;
+      } else {
+        alert(res.message);
+      }
+    });
   }
 
   handleDelete(event: Event, id?: number) {
-		if (confirm('Are you sure you want to delete this task?')) {
-			event.stopPropagation();
-			this.tasksService.deleteTask(id);
-		}
+    if (confirm('Are you sure you want to delete this task?')) {
+      event.stopPropagation();
+      this.tasksService.deleteTask(id).subscribe((res) => {
+				this.taskDeleted.emit(true);
+			});
+    }
   }
 }

@@ -15,7 +15,6 @@ import { SessionsService } from './sessions.service';
 export class TodoListComponent implements OnInit {
   tasks?: Task[];
   activeTaskId!: number;
-  activeTask?: Task;
   edit: boolean = false;
 
   taskTime!: number;
@@ -24,14 +23,10 @@ export class TodoListComponent implements OnInit {
   constructor(private tasksService: TasksService, private sessionsService: SessionsService) {}
 
   ngOnInit(): void {
-    this.tasksService.getTasks().subscribe((res) => {
-      this.tasks = res.body;
-    });
+    this.getTasks();
 
     this.tasksService.taskCreated.subscribe(() => {
-      this.tasksService.getTasks().subscribe((res) => {
-        this.tasks = res.body;
-      });
+      this.getTasks();
 
       const tasksDiv = document.querySelector('.tasks-content');
       const scrollHeight: number = tasksDiv?.scrollHeight as number;
@@ -49,22 +44,25 @@ export class TodoListComponent implements OnInit {
       this.edit = edit;
     });
 
-    this.tasksService.taskDeleted.subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
-      this.edit = false;
-    });
-
     this.setActiveTask();
   }
 
-  handleTaskClick(id: number) {
-    this.tasksService.updateActive(id).subscribe(res => {
-			this.activeTaskId = id;
-			this.tasksService.getTask(this.activeTaskId).then((task) => {
-        this.activeTask = task;
-      });
-		});
+  getTasks() {
+    this.tasksService.getTasks().subscribe((res) => {
+      this.tasks = res.body;
+    });
   }
+
+  handleTaskClick(id: number) {
+    this.tasksService.updateActive(id).subscribe((res) => {
+      this.setActiveTask();
+    });
+  }
+
+	handleTaskDelete() {
+		this.edit = false;
+    this.getTasks();
+	}
 
   onSaveClick() {
     this.tasksService.editClicked.emit(false);
@@ -73,19 +71,10 @@ export class TodoListComponent implements OnInit {
   setActiveTask() {
     this.tasksService.getActiveTask().subscribe((res) => {
       this.activeTaskId = res.body[0].taskId;
-
-      this.tasksService.getTask(this.activeTaskId).then((task) => {
-        this.activeTask = task;
-      });
     });
 
-		console.log(this.activeTaskId)
-		console.log(this.activeTask)
-
-		// not working
-    this.taskTime = this.sessionsService.sumTimeByTask(this.activeTask?.id as number);
-    this.taskSessions = this.sessionsService.getSessionsFromTask(
-      this.activeTask?.id as number
-    ).length;
+    // not working
+    this.taskTime = this.sessionsService.sumTimeByTask(this.activeTaskId);
+    this.taskSessions = this.sessionsService.getSessionsFromTask(this.activeTaskId).length;
   }
 }

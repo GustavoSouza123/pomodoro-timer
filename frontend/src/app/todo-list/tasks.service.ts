@@ -8,10 +8,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TasksService {
-  taskClicked = new EventEmitter<Task>();
   taskCreated = new EventEmitter<boolean>();
+  activeTaskUpdated = new EventEmitter<Task>();
   editClicked = new EventEmitter<boolean>();
-  taskDeleted = new EventEmitter<Task[]>();
 
   private tasks!: Task[];
   // private tasks: Task[] = [
@@ -61,7 +60,7 @@ export class TasksService {
   }
 
   getActiveTask(): Observable<any> {
-		return this.http.get<any>(`${environment.apiUrl}/api/activeTask`, {
+    return this.http.get<any>(`${environment.apiUrl}/api/activeTask`, {
       observe: 'response',
     });
   }
@@ -78,7 +77,7 @@ export class TasksService {
     this.getTasks().subscribe((res) => {
       res.body.forEach((task: any) => {
         if (task.id === id) {
-          this.taskClicked.emit(task);
+          this.activeTaskUpdated.emit(task);
         }
       });
     });
@@ -88,19 +87,15 @@ export class TasksService {
     });
   }
 
-  updateFavorite(id?: number) {
-    this.tasks.forEach((task) => {
-      if (task.id === id) {
-        task.favorite = !task.favorite;
-      }
+  updateFavorite(task: Task): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/api/tasks/${task.id}`, {
+      title: task.title,
+      description: task.description,
+      favorite: !task.favorite,
     });
   }
 
-  deleteTask(id?: number) {
-    this.tasks.splice(
-      this.tasks.findIndex((task) => task.id === id),
-      1
-    );
-    this.taskDeleted.emit(this.tasks.slice());
+  deleteTask(id?: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/api/tasks/${id}`);
   }
 }

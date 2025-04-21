@@ -20,8 +20,9 @@
             *ngFor="let task of tasks"
             [task]="task"
             [edit]="edit"
+						[active]="activeTaskId === task.id"
             (taskClicked)="handleTaskClick($event)"
-            (click)="setActiveTask()"
+						(taskDeleted)="handleTaskDelete()"
           />
         </div>
       </div>
