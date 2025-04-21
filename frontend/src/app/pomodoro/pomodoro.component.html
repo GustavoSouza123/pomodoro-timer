@@ -28,7 +28,10 @@
         <div>:</div>
         <input type="text" class="seconds" [(ngModel)]="secondsStr" readonly />
       </div>
-      <div class="description">{{ activeTab.name }}</div>
+      <div class="description">
+				<div class="task">{{ activeTask?.title }}</div>
+				<div class="tab">{{ activeTab.name }}</div>
+			</div>
     </div>
     <div class="buttons">
       <div class="button" (click)="onStartClick()">

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { TitleComponent } from '../title/title.component';
 import { Settings, SettingsService } from '../settings/settings.service';
 import { MatIconModule } from '@angular/material/icon';
+import { TasksService } from '../todo-list/tasks.service';
+import { Task } from '../todo-list/task.model';
 
 interface Tab {
   id: number;
@@ -68,14 +70,22 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
   timerStarted: boolean = false;
   isPaused: boolean = false;
   alarmStarted: boolean = false;
-	timer: any;
+  timer: any;
 
-  constructor(private settingsService: SettingsService) {}
+	activeTask?: Task;
+
+  constructor(private settingsService: SettingsService, private tasksService: TasksService) {}
 
   ngOnInit(): void {
     this.checkSeconds();
     this.settings = this.settingsService.getSettings();
     this.selectedAlarm = this.settings.alarms[this.settings.selectedAlarm].file;
+
+		this.tasksService.taskClicked.subscribe(activeTask => {
+			this.activeTask = activeTask;
+		});
+
+		this.activeTask = this.tasksService.getActiveTask();
   }
 
   ngAfterViewInit(): void {
@@ -95,10 +105,10 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
         this.isPaused = false;
       }
       if (this.alarmStarted) {
-      	this.resetAlarm();
+        this.resetAlarm();
       }
     } else {
-    	this.timer = setInterval(() => {
+      this.timer = setInterval(() => {
         if (!this.isPaused) {
           this.seconds--;
           if (this.seconds < 0) {
@@ -127,7 +137,7 @@ export class PomodoroComponent implements OnInit, AfterViewInit {
     this.alarmStarted = false;
     this.minutes = this.activeTab.time.minutes;
     this.seconds = this.activeTab.time.seconds;
-		clearInterval(this.timer);
+    clearInterval(this.timer);
     this.checkSeconds();
     this.checkInputWidth();
   }

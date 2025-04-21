@@ -74,7 +74,7 @@ section {
     .timer {
       @include mixins.align-center();
       flex-direction: column;
-      gap: 32px;
+      gap: 12px;
       width: 300px;
       height: 300px;
       border: 5px solid base.$border;
@@ -116,16 +116,26 @@ section {
       }
 
       .description {
-        color: base.$color-terciary;
         font-size: 20px;
         // text-transform: uppercase;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+				gap: 8px;
+
+        // .task {
+        // }
+
+        .tab {
+          color: base.$color-terciary;
+        }
       }
     }
 
     .buttons {
-			position: relative;
-			display: flex;
-			align-items: center;
+      position: relative;
+      display: flex;
+      align-items: center;
 
       .button {
         @include mixins.align-center();
@@ -139,22 +149,22 @@ section {
         font-size: 18px;
 
         &.reset {
-					position: absolute;
-					right: calc(-40px + -24px);
-					display: none;
+          position: absolute;
+          right: calc(-40px + -24px);
+          display: none;
           width: 40px;
           height: 40px;
           font-size: 16px;
-					border-radius: 50%;
+          border-radius: 50%;
 
-					&.active {
-						display: flex;
-					}
+          &.active {
+            display: flex;
+          }
 
-					.mat-icon {
-						@include mixins.align-center();
-						font-size: 22px;
-					}
+          .mat-icon {
+            @include mixins.align-center();
+            font-size: 22px;
+          }
         }
 
         &:hover {

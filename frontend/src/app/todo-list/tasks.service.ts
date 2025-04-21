@@ -6,8 +6,9 @@ import { Task } from './task.model';
 })
 export class TasksService {
   taskCreated = new EventEmitter<Task[]>();
+	taskClicked = new EventEmitter<Task>();
   editClicked = new EventEmitter<boolean>();
-	taskDeleted = new EventEmitter<Task[]>();
+  taskDeleted = new EventEmitter<Task[]>();
 
   private tasks: Task[] = [
     {
@@ -48,6 +49,10 @@ export class TasksService {
     return this.tasks.find((task) => task.id === id);
   }
 
+  getActiveTask() {
+    return this.tasks.find((task) => task.active);
+  }
+
   createTask() {
     this.tasks.push({
       id: this.tasks.length + 1,
@@ -65,6 +70,7 @@ export class TasksService {
       task.active = false;
       if (task.id === id) {
         task.active = true;
+				this.taskClicked.emit(task);
       }
     });
   }
@@ -77,8 +83,11 @@ export class TasksService {
     });
   }
 
-	deleteTask(id?: number) {
-		this.tasks.splice(this.tasks.findIndex(task => task.id === id), 1);
-		this.taskDeleted.emit(this.tasks.slice());
-	}
+  deleteTask(id?: number) {
+    this.tasks.splice(
+      this.tasks.findIndex((task) => task.id === id),
+      1
+    );
+    this.taskDeleted.emit(this.tasks.slice());
+  }
 }
